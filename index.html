@@ -6,12 +6,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            overflow-x: auto;
-        }
-
-        .scale-container {
-            transform: scale(1);
-            transform-origin: top left;
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
         }
 
         table, th, td {
@@ -22,8 +19,6 @@
 
         .container {
             display: flex;
-            justify-content: space-around;
-            padding: 20px;
         }
 
         .left, .right {
@@ -38,34 +33,32 @@
     </style>
 </head>
 <body>
-    <div class="scale-container">
-        <div class="container">
-            <div class="left">
-                <table id="volumeTable">
-                    <thead>
-                        <tr><th>Довжина</th><th>Діаметр</th><th>Об'єм</th></tr>
-                    </thead>
-                    <tbody></tbody>
-                    <tfoot>
-                        <tr><td colspan="2"><strong>Загальний об'єм:</strong></td><td id="totalVolume">0</td></tr>
-                    </tfoot>
-                </table>
-            </div>
-            <div class="right">
-                <label for="length">Довжина:</label>
-                <select id="length">
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
+    <div class="container">
+        <div class="left">
+            <table id="volumeTable">
+                <thead>
+                    <tr><th>Довжина</th><th>Діаметр</th><th>Об'єм</th></tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr><td colspan="2"><strong>Загальний об'єм:</strong></td><td id="totalVolume">0</td></tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="right">
+            <label for="length">Довжина:</label>
+            <select id="length">
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
 
-                <label for="diameter">Діаметр:</label>
-                <select id="diameter">
-                    <!-- JavaScript додасть опції -->
-                </select>
+            <label for="diameter">Діаметр:</label>
+            <select id="diameter">
+                <!-- JavaScript додасть опції -->
+            </select>
 
-                <button onclick="saveEntry()">Зберегти</button>
-            </div>
+            <button onclick="saveEntry()">Зберегти</button>
         </div>
     </div>
 
@@ -76,6 +69,7 @@
             "4-18": 0.12, "5-18": 0.156, "6-18": 0.194,
             "4-19": 0.1335, "5-19": 0.173, "6-19": 0.212,
             "4-20": 0.147, "5-20": 0.19, "6-20": 0.23
+            // Продовжити, якщо потрібно
         };
 
         const diameterSelect = document.getElementById("diameter");
@@ -89,13 +83,13 @@
         function saveEntry() {
             const length = document.getElementById("length").value;
             const diameter = document.getElementById("diameter").value;
-            const key = `${length}-${diameter}`;
+            const key = ${ length }-${ diameter };
 
             const volume = volumeLookup[key];
             if (volume !== undefined) {
                 const tableBody = document.querySelector("#volumeTable tbody");
                 const newRow = tableBody.insertRow();
-                newRow.innerHTML = `<td>${length}</td><td>${diameter}</td><td>${volume.toFixed(3)}</td>`;
+                newRow.innerHTML = <td>${length}</td><td>${diameter}</td><td>${volume.toFixed(3)}</td>;
 
                 const totalField = document.getElementById("totalVolume");
                 const currentTotal = parseFloat(totalField.textContent);
