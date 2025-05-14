@@ -73,7 +73,8 @@
                 </thead>
                 <tbody></tbody>
                 <tfoot>
-                    <tr><td colspan="3"><strong>Загальний об'єм:</strong></td><td id="totalVolume">0</td></tr>
+                    <tr><td><strong>Кількість:</strong></td><td id="totalQuantity">0</td></tr>
+                    <tr><td><strong>Загальний об'єм:</strong></td><td id="totalVolume">0</td></tr>
                 </tfoot>
             </table>
         </div>
@@ -155,6 +156,7 @@
             const length = document.getElementById("length").value;
             const diameter = document.getElementById("diameter").value;
             const key = `${length}-${diameter}`;
+            const quantity;
 
             const volume = volumeLookup[key];
             if (volume !== undefined) {
@@ -169,6 +171,9 @@
                 const totalField = document.getElementById("totalVolume");
                 const currentTotal = parseFloat(totalField.textContent);
                 totalField.textContent = (currentTotal + volume).toFixed(3);
+
+                quantity++;
+                totalQuantity.textContent = quantity; 
             } else {
                 alert("Значення не знайдено у таблиці.");
             }
@@ -181,6 +186,9 @@
             const totalField = document.getElementById("totalVolume");
             const currentTotal = parseFloat(totalField.textContent);
             totalField.textContent = (currentTotal - volume).toFixed(3); // зменшуємо загальний об'єм
+
+            quantity--;
+            totalQuantity.textContent = quantity; 
         }
     </script>
 </body>
