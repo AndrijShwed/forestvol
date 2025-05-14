@@ -6,101 +6,104 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: space-around;
-            padding: 60px; /* було 20px */
-            font-size: 3em; /* масштаб шрифту */
+            overflow-x: auto;
+        }
+
+        .scale-container {
+            transform: scale(3);
+            transform-origin: top left;
         }
 
         table, th, td {
-            border: 3px solid black; /* було 1px */
+            border: 1px solid black;
             border-collapse: collapse;
-            padding: 15px; /* було 5px */
+            padding: 5px;
         }
 
         .container {
             display: flex;
+            justify-content: space-around;
+            padding: 20px;
         }
 
         .left, .right {
-            margin: 30px; /* було 10px */
+            margin: 10px;
         }
 
         select, button {
             display: block;
-            margin-top: 30px; /* було 10px */
-            padding: 15px; /* було 5px */
-            font-size: 1em; /* шрифт всередині */
+            margin-top: 10px;
+            padding: 5px;
         }
     </style>
-
 </head>
 <body>
-  <div class="container">
-    <div class="left">
-      <table id="volumeTable">
-        <thead>
-          <tr><th>Довжина</th><th>Діаметр</th><th>Об'єм</th></tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-          <tr><td colspan="2"><strong>Загальний об'єм:</strong></td><td id="totalVolume">0</td></tr>
-        </tfoot>
-      </table>
+    <div class="scale-container">
+        <div class="container">
+            <div class="left">
+                <table id="volumeTable">
+                    <thead>
+                        <tr><th>Довжина</th><th>Діаметр</th><th>Об'єм</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr><td colspan="2"><strong>Загальний об'єм:</strong></td><td id="totalVolume">0</td></tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="right">
+                <label for="length">Довжина:</label>
+                <select id="length">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+
+                <label for="diameter">Діаметр:</label>
+                <select id="diameter">
+                    <!-- JavaScript додасть опції -->
+                </select>
+
+                <button onclick="saveEntry()">Зберегти</button>
+            </div>
+        </div>
     </div>
-    <div class="right">
-      <label for="length">Довжина:</label>
-      <select id="length">
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-      </select>
 
-      <label for="diameter">Діаметр:</label>
-      <select id="diameter">
-        <!-- JavaScript додасть опції -->
-      </select>
+    <script>
+        const volumeLookup = {
+            "4-16": 0.095, "5-16": 0.124, "6-16": 0.155,
+            "4-17": 0.1075, "5-17": 0.14, "6-17": 0.1745,
+            "4-18": 0.12, "5-18": 0.156, "6-18": 0.194,
+            "4-19": 0.1335, "5-19": 0.173, "6-19": 0.212,
+            "4-20": 0.147, "5-20": 0.19, "6-20": 0.23
+        };
 
-      <button onclick="saveEntry()">Зберегти</button>
-    </div>
-  </div>
+        const diameterSelect = document.getElementById("diameter");
+        for (let d = 16; d <= 60; d++) {
+            const option = document.createElement("option");
+            option.value = d;
+            option.text = d;
+            diameterSelect.appendChild(option);
+        }
 
-  <script>
-    const volumeLookup = {
-      "4-16": 0.095, "5-16": 0.124, "6-16": 0.155,
-      "4-17": 0.1075, "5-17": 0.14, "6-17": 0.1745,
-      "4-18": 0.12, "5-18": 0.156, "6-18": 0.194,
-      "4-19": 0.1335, "5-19": 0.173, "6-19": 0.212,
-      "4-20": 0.147, "5-20": 0.19, "6-20": 0.23
-      // Продовжити, якщо потрібно
-    };
+        function saveEntry() {
+            const length = document.getElementById("length").value;
+            const diameter = document.getElementById("diameter").value;
+            const key = `${length}-${diameter}`;
 
-    const diameterSelect = document.getElementById("diameter");
-    for (let d = 16; d <= 60; d++) {
-      const option = document.createElement("option");
-      option.value = d;
-      option.text = d;
-      diameterSelect.appendChild(option);
-    }
+            const volume = volumeLookup[key];
+            if (volume !== undefined) {
+                const tableBody = document.querySelector("#volumeTable tbody");
+                const newRow = tableBody.insertRow();
+                newRow.innerHTML = `<td>${length}</td><td>${diameter}</td><td>${volume.toFixed(3)}</td>`;
 
-    function saveEntry() {
-      const length = document.getElementById("length").value;
-      const diameter = document.getElementById("diameter").value;
-      const key = `${length}-${diameter}`;
-
-      const volume = volumeLookup[key];
-      if (volume !== undefined) {
-        const tableBody = document.querySelector("#volumeTable tbody");
-        const newRow = tableBody.insertRow();
-        newRow.innerHTML = `<td>${length}</td><td>${diameter}</td><td>${volume.toFixed(3)}</td>`;
-
-        const totalField = document.getElementById("totalVolume");
-        const currentTotal = parseFloat(totalField.textContent);
-        totalField.textContent = (currentTotal + volume).toFixed(3);
-      } else {
-        alert("Значення не знайдено у таблиці.");
-      }
-    }
-  </script>
+                const totalField = document.getElementById("totalVolume");
+                const currentTotal = parseFloat(totalField.textContent);
+                totalField.textContent = (currentTotal + volume).toFixed(3);
+            } else {
+                alert("Значення не знайдено у таблиці.");
+            }
+        }
+    </script>
 </body>
 </html>
