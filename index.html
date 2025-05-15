@@ -393,6 +393,13 @@
             }
         }
 
+        .scrollable-body {
+            overflow-y: auto;
+            flex-grow: 1;
+            scroll-padding-bottom: 40px; /* щоб футер не перекривав останній рядок */
+            padding-bottom: 40px; /* щоб створити місце перед футером */
+        }
+
 
     </style>
 </head>
@@ -521,6 +528,9 @@
                 totalField.textContent = (currentTotal + volume).toFixed(3);
 
                 document.getElementById("totalCount").textContent = tableBody.rows.length;
+                document.querySelector('.scrollable-body').scrollTop =
+                    document.querySelector('.scrollable-body').scrollHeight;
+
             } else {
                 alert("Значення не знайдено у таблиці.");
             }
