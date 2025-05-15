@@ -368,6 +368,17 @@
             padding: 6px 10px; /* Зменшено padding зверху і знизу (раніше було 10px) */
             text-align: center; /* Центруємо горизонтально */
             vertical-align: middle; /* Центруємо вертикально */
+            display: table-cell; /* явно вказуємо display для коректного vertical-align */
+            white-space: nowrap; /* щоб текст не переносився */
+        }
+
+        @media (max-width: 768px) {
+            #volumeBodyTable tbody td {
+                padding: 6px 8px;
+                text-align: center;
+                vertical-align: middle;
+                display: table-cell;
+            }
         }
 
 
