@@ -61,9 +61,10 @@
             cursor: pointer;
         }
 
-            button:hover {
-                background-color: #45a049;
-            }
+        buttonDel {
+            background-color: red;
+        }
+
     </style>
 </head>
 <body>
@@ -176,7 +177,7 @@
                  <td>${length}</td>
                  <td>${diameter}</td>
                  <td>${volume.toFixed(3)}</td>
-                 <td><button onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
+                 <td><buttonDel onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></buttonDel></td>`;
 
                 const totalField = document.getElementById("totalVolume");
                 const currentTotal = parseFloat(totalField.textContent);
