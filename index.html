@@ -47,7 +47,7 @@
         th, td {
             border: 1px solid black;
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
 
         thead th {
@@ -335,10 +335,10 @@
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                <td>${selectedLength}</td>
-                <td>${selectedDiameter}</td>
-                <td>${volume.toFixed(3)}</td>
-                <td><button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
+                    <td>${selectedLength}</td>
+                    <td>${selectedDiameter}</td>
+                    <td>${volume.toFixed(3)}</td>
+                    <td><button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
 
                     const totalField = document.getElementById("totalVolume");
                     const currentTotal = parseFloat(totalField.textContent);
@@ -367,4 +367,5 @@
     </script>
 </body>
 </html>
+
 
