@@ -329,7 +329,7 @@
             border: none;
             cursor: pointer;
             padding: 10px;
-            font-size: 16px;
+            font-size: 12px;
         }
 
             .delete-button:hover {
@@ -343,6 +343,27 @@
                 gap: 10px;
             }
         }
+
+        table th:nth-child(1),
+        table td:nth-child(1) {
+            width: 14%;
+        }
+
+        table th:nth-child(2),
+        table td:nth-child(2) {
+            width: 14%;
+        }
+
+        table th:nth-child(3),
+        table td:nth-child(3) {
+            width: 36%;
+        }
+
+        table th:nth-child(4),
+        table td:nth-child(4) {
+            width: 36%;
+        }
+
     </style>
 </head>
 <body>
@@ -367,9 +388,9 @@
                 <table>
                     <tfoot>
                         <tr>
-                            <td><strong>Об'єм:</strong></td>
+                            <td><strong>V:</strong></td>
                             <td id="totalVolume">0</td>
-                            <td><strong>К-сть:</strong></td>
+                            <td><strong>Шт:</strong></td>
                             <td id="totalCount">0</td>
                         </tr>
                     </tfoot>
