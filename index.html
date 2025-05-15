@@ -230,8 +230,8 @@
 
             <label for="diameter">Діаметр:</label>
             <select id="diameter">-->
-                <!-- JavaScript додасть опції -->
-            <!--</select>
+<!-- JavaScript додасть опції -->
+<!--</select>
 
             <button onclick="saveEntry()">Зберегти</button>
         </div>
@@ -415,6 +415,8 @@
         .scrollable-body {
             overflow-y: auto;
             flex-grow: 1;
+            scroll-padding-bottom: 40px;
+            padding-bottom: 40px;
         }
 
         label {
@@ -423,17 +425,12 @@
             display: block;
         }
 
-        button, option {
+        button {
             font-size: 18px;
             padding: 14px 12px;
             width: 100%;
             margin-top: 12px;
             box-sizing: border-box;
-        }
-
-
-
-        button {
             background-color: #4CAF50;
             color: white;
             border: none;
@@ -457,79 +454,7 @@
                 background-color: #c62828;
             }
 
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: row;
-                flex-wrap: nowrap;
-                gap: 10px;
-            }
-        }
-
-        table th:nth-child(1),
-        table td:nth-child(1) {
-            width: 20%;
-        }
-
-        table th:nth-child(2),
-        table td:nth-child(2) {
-            width: 20%;
-        }
-
-        table th:nth-child(3),
-        table td:nth-child(3) {
-            width: 36%;
-        }
-
-        table th:nth-child(4),
-        table td:nth-child(4) {
-            width: 24%;
-        }
-
-        tfoot td:nth-child(2) {
-            width: 36%;
-        }
-
-        tfoot td:nth-child(3) {
-            width: 14%;
-        }
-
-        #volumeBodyTable tbody td {
-            padding: 6px 10px; /* Зменшено padding зверху і знизу (раніше було 10px) */
-            text-align: center; /* Центруємо горизонтально */
-            vertical-align: middle; /* Центруємо вертикально */
-            display: table-cell; /* явно вказуємо display для коректного vertical-align */
-            white-space: nowrap; /* щоб текст не переносився */
-        }
-
-        @media (max-width: 768px) {
-            #volumeBodyTable tbody td {
-                padding: 6px 8px;
-                text-align: center;
-                vertical-align: middle;
-                display: table-cell;
-            }
-        }
-
-        .scrollable-body {
-            overflow-y: auto;
-            flex-grow: 1;
-            scroll-padding-bottom: 40px; /* щоб футер не перекривав останній рядок */
-            padding-bottom: 40px; /* щоб створити місце перед футером */
-        }
-
-        select {
-            font-size: 24px;
-            font-weight: bolder;
-            padding: 14px 12px;
-            width: 100%;
-            margin-top: 12px;
-            box-sizing: border-box;
-        }
-
-        option {
-            font-size: 24px;
-        }
-
+        /* Кастомні селекти */
         .custom-select {
             position: relative;
             font-size: 24px;
@@ -580,7 +505,6 @@
         .select-hide {
             display: none;
         }
-
     </style>
 </head>
 <body>
@@ -614,6 +538,7 @@
                 </table>
             </div>
         </div>
+
         <div class="right">
             <label>Довжина:</label>
             <div class="custom-select" id="length-custom">
@@ -628,9 +553,7 @@
             <label>Діаметр:</label>
             <div class="custom-select" id="diameter-custom">
                 <div class="select-selected">16</div>
-                <div class="select-items select-hide">
-                    <!-- Опції для діаметра будуть додаватися JS -->
-                </div>
+                <div class="select-items select-hide"></div>
             </div>
 
             <button onclick="saveEntry()">Зберегти</button>
@@ -686,65 +609,13 @@
             "4-60": 1.33, "5-60": 1.68, "6-60": 2.05
         };
 
-        const diameterSelect = document.getElementById("diameter");
-        for (let d = 16; d <= 60; d++) {
-            const option = document.createElement("option");
-            option.value = d;
-            option.text = d;
-            diameterSelect.appendChild(option);
-        }
-
-        function saveEntry() {
-            const length = document.getElementById("length").value;
-            const diameter = document.getElementById("diameter").value;
-            const key = `${length}-${diameter}`;
-
-            const volume = volumeLookup[key];
-            if (volume !== undefined) {
-                const tableBody = document.querySelector("#volumeBodyTable tbody");
-                const newRow = tableBody.insertRow();
-                newRow.innerHTML = `
-                            <td>${length}</td>
-                            <td>${diameter}</td>
-                            <td>${volume.toFixed(3)}</td>
-                            <td><button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
-
-                const totalField = document.getElementById("totalVolume");
-                const currentTotal = parseFloat(totalField.textContent);
-                totalField.textContent = (currentTotal + volume).toFixed(3);
-
-                document.getElementById("totalCount").textContent = tableBody.rows.length;
-                document.querySelector('.scrollable-body').scrollTop =
-                    document.querySelector('.scrollable-body').scrollHeight;
-
-            } else {
-                alert("Значення не знайдено у таблиці.");
-            }
-        }
-
-        function deleteEntry(button, volume) {
-            const row = button.closest('tr');
-            row.remove();
-
-            const totalField = document.getElementById("totalVolume");
-            const currentTotal = parseFloat(totalField.textContent);
-            totalField.textContent = (currentTotal - volume).toFixed(3);
-
-            const tableBody = document.querySelector("#volumeBodyTable tbody");
-            document.getElementById("totalCount").textContent = tableBody.rows.length;
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
-            // Функція для створення кастомного селекту
             function setupCustomSelect(customSelectId, valuesArray, defaultValue, onChange) {
                 const customSelect = document.getElementById(customSelectId);
                 const selected = customSelect.querySelector('.select-selected');
                 const itemsContainer = customSelect.querySelector('.select-items');
 
-                // Очищаємо, на всяк випадок
                 itemsContainer.innerHTML = '';
-
-                // Додаємо опції
                 valuesArray.forEach(val => {
                     const div = document.createElement('div');
                     div.textContent = val;
@@ -752,17 +623,14 @@
                     itemsContainer.appendChild(div);
                 });
 
-                // Встановлюємо значення за замовчуванням
                 selected.textContent = defaultValue;
 
-                // Відкриття/закриття списку при кліку
                 selected.addEventListener('click', () => {
                     closeAllCustomSelects(customSelect);
                     itemsContainer.classList.toggle('select-hide');
                     selected.classList.toggle('active');
                 });
 
-                // Вибір опції
                 itemsContainer.querySelectorAll('div').forEach(option => {
                     option.addEventListener('click', () => {
                         selected.textContent = option.textContent;
@@ -773,32 +641,27 @@
                 });
             }
 
-            // Закриває всі селекти, крім переданого
             function closeAllCustomSelects(exceptionSelect) {
                 document.querySelectorAll('.custom-select').forEach(cs => {
                     if (cs !== exceptionSelect) {
-                        cs.querySelector('.select-items').classList.add('select-hide');
-                        cs.querySelector('.select-selected').classList.remove('active');
+                        cs.querySelector('.select-items')?.classList.add('select-hide');
+                        cs.querySelector('.select-selected')?.classList.remove('active');
                     }
                 });
             }
 
-            // Закриваємо при кліку поза селектом
             document.addEventListener('click', (e) => {
                 if (![...document.querySelectorAll('.custom-select')].some(cs => cs.contains(e.target))) {
                     closeAllCustomSelects(null);
                 }
             });
 
-            // Заповнюємо діаметри 16..60 як в твоєму коді
             const diameters = [];
             for (let d = 16; d <= 60; d++) diameters.push(d.toString());
 
-            // Змінні для збереження вибраних значень
             let selectedLength = "4";
             let selectedDiameter = "16";
 
-            // Ініціалізація кастомних селектів
             setupCustomSelect('length-custom', ["4", "5", "6"], selectedLength, (val) => {
                 selectedLength = val;
             });
@@ -807,7 +670,6 @@
                 selectedDiameter = val;
             });
 
-            // Твоя функція saveEntry з оновленням на кастомні селекти
             window.saveEntry = function () {
                 const key = `${selectedLength}-${selectedDiameter}`;
                 const volume = volumeLookup[key];
@@ -827,13 +689,11 @@
                     document.getElementById("totalCount").textContent = tableBody.rows.length;
                     document.querySelector('.scrollable-body').scrollTop =
                         document.querySelector('.scrollable-body').scrollHeight;
-
                 } else {
                     alert("Значення не знайдено у таблиці.");
                 }
             };
 
-            // Функція видалення рядка (як у тебе була)
             window.deleteEntry = function (button, volume) {
                 const row = button.closest('tr');
                 row.remove();
@@ -846,7 +706,7 @@
                 document.getElementById("totalCount").textContent = tableBody.rows.length;
             };
         });
-
     </script>
 </body>
 </html>
+
