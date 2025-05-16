@@ -394,6 +394,8 @@
 
                 const tableBody = document.querySelector("#volumeBodyTable tbody");
                 document.getElementById("totalCount").textContent = tableBody.rows.length;
+
+                document.getElementById("deleteSound").play();
             };
 
             // Функція експорту в Excel з SheetJS
@@ -434,6 +436,7 @@
     </script>
     <!-- У кінці body -->
     <audio id="clickSound" src="Sounds/click.mp3"></audio>
+    <audio id="deleteSound" src="Sounds/delete.mp3"></audio>
 
 </body>
 </html>
