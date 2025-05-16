@@ -365,10 +365,10 @@
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                        <td>${selectedLength}</td>
-                        <td>${selectedDiameter}</td>
-                        <td>${volume.toFixed(3)}</td>
-                        <td><button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
+                            <td>${selectedLength}</td>
+                            <td>${selectedDiameter}</td>
+                            <td>${volume.toFixed(3)}</td>
+                            <td><button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
 
                     const totalField = document.getElementById("totalVolume");
                     const currentTotal = parseFloat(totalField.textContent);
@@ -377,6 +377,8 @@
                     document.getElementById("totalCount").textContent = tableBody.rows.length;
                     document.querySelector('.scrollable-body').scrollTop =
                         document.querySelector('.scrollable-body').scrollHeight;
+
+                    document.getElementById("clickSound").play();
                 } else {
                     alert("Значення не знайдено у таблиці.");
                 }
@@ -430,5 +432,8 @@
             document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
         });
     </script>
+    <!-- У кінці body -->
+    <audio id="clickSound" src="Sounds/click.mp3"></audio>
+
 </body>
 </html>
