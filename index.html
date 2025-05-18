@@ -356,6 +356,7 @@
 
             setupCustomSelect('diameter-custom', diameters, selectedDiameter, (val) => {
                 selectedDiameter = val;
+                document.getElementById("clickSound").play();
             });
 
             window.saveEntry = function () {
