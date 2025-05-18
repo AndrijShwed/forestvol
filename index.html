@@ -106,7 +106,30 @@
                 background-color: darkgreen;
             }
 
+        #volumeBodyTable td {
+            height: 44px; /* або інша бажана висота рядка */
+            padding: 0; /* прибираємо зайві відступи */
+        }
+
         .delete-button {
+            background-color: #e53935;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto; /* центрування всередині клітинки */
+        }
+
+            .delete-button i {
+                font-size: 14px;
+            }
+
+       /* .delete-button {
             background-color: #e53935;
             color: white;
             border: none;
@@ -117,12 +140,13 @@
             align-items: center;
             justify-content: center;
             line-height: 1;
-        }
+        }*/
 
 
             .delete-button:hover {
                 background-color: #c62828;
             }
+
 
         /* Кастомні селекти */
         .custom-select {
