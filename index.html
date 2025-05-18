@@ -110,13 +110,14 @@
             color: white;
             border: none;
             cursor: pointer;
-            padding: 10px;
-            font-size: 12px;
-            display: flex;
+            padding: 8px;
+            font-size: 14px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            line-height: 1;
         }
+
 
             .delete-button:hover {
                 background-color: #c62828;
@@ -386,7 +387,11 @@
                             <td>${selectedLength}</td>
                             <td>${selectedDiameter}</td>
                             <td>${volume.toFixed(3)}</td>
-                            <td><button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
+                            <td>
+                               <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                  <i class="fas fa-trash"></i>
+                               </button>
+                            </td>`;
 
                     if(selectedLength == 4) {
                         newRow.classList.add("length-4");
