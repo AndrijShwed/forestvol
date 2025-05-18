@@ -352,11 +352,12 @@
 
             setupCustomSelect('length-custom', ["4", "5", "6"], selectedLength, (val) => {
                 selectedLength = val;
+                document.getElementById("tikkSound").play();
             });
 
             setupCustomSelect('diameter-custom', diameters, selectedDiameter, (val) => {
                 selectedDiameter = val;
-                document.getElementById("clickSound").play();
+                document.getElementById("tikkSound").play();
             });
 
             window.saveEntry = function () {
@@ -441,6 +442,7 @@
     <audio id="clickSound" src="Sounds/click.mp3"></audio>
     <audio id="deleteSound" src="Sounds/delete.mp3"></audio>
     <audio id="tapSound" src="Sounds/tap.mp3"></audio>
+    <audio id="tikSound" src="Sounds/tik.mp3"></audio>
 
 </body>
 </html>
