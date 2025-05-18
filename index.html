@@ -428,6 +428,8 @@
 
                 // Зберігаємо файл
                 XLSX.writeFile(wb, "forestvol_table.xlsx");
+
+                document.getElementById("tapSound").play();
             }
 
             // Прив'язка кнопки
@@ -437,6 +439,7 @@
     <!-- У кінці body -->
     <audio id="clickSound" src="Sounds/click.mp3"></audio>
     <audio id="deleteSound" src="Sounds/delete.mp3"></audio>
+    <audio id="tapSound" src="Sounds/tap.mp3"></audio>
 
 </body>
 </html>
