@@ -182,6 +182,18 @@
             font-size: 18px;
             cursor: pointer;
         }
+        .length-4 {
+            background-color: yellow;
+        }
+
+        .length-5 {
+            background-color: lightblue;
+        }
+
+        .length-6 {
+            background-color: lightgreen;
+        }
+
 
     </style>
 </head>
@@ -372,6 +384,13 @@
                             <td>${volume.toFixed(3)}</td>
                             <td><button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
 
+                    if(selectedLength == 4) {
+                        newRow.classList.add("length-4");
+                    } else if (selectedLength == 5) {
+                        newRow.classList.add("length-5");
+                    } else if (selectedLength == 6) {
+                        newRow.classList.add("length-6");
+                    }
                     const totalField = document.getElementById("totalVolume");
                     const currentTotal = parseFloat(totalField.textContent);
                     totalField.textContent = (currentTotal + volume).toFixed(3);
