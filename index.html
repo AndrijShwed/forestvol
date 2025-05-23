@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>forestvol</title>
+    <link rel="icon" href="Forest.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="Image/Forest.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="Image/ForestVol1.png" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <style>
         body {
@@ -68,6 +72,7 @@
             bottom: 0;
             background-color: aquamarine;
             z-index: 1;
+            font-weight: bold;
         }
 
         thead th, tfoot td {
@@ -105,18 +110,47 @@
                 background-color: darkgreen;
             }
 
+        #volumeBodyTable td {
+            height: 44px; /* або інша бажана висота рядка */
+            padding: 0; /* прибираємо зайві відступи */
+        }
+
         .delete-button {
             background-color: #e53935;
             color: white;
             border: none;
             cursor: pointer;
-            padding: 10px;
-            font-size: 12px;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto; /* центрування всередині клітинки */
         }
+
+            .delete-button i {
+                font-size: 14px;
+            }
+
+            /* .delete-button {
+            background-color: #e53935;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }*/
+
 
             .delete-button:hover {
                 background-color: #c62828;
             }
+
 
         /* Кастомні селекти */
         .custom-select {
@@ -183,6 +217,17 @@
             cursor: pointer;
         }
 
+        .length-4 {
+            background-color: yellow;
+        }
+
+        .length-5 {
+            background-color: lightblue;
+        }
+
+        .length-6 {
+            background-color: lightgreen;
+        }
     </style>
 </head>
 <body>
@@ -207,9 +252,9 @@
                 <table>
                     <tfoot>
                         <tr>
-                            <td><strong>V:</strong></td>
+                            <td>V:</td>
                             <td id="totalVolume">0</td>
-                            <td><strong>Шт:</strong></td>
+                            <td>Шт:</td>
                             <td id="totalCount">0</td>
                         </tr>
                     </tfoot>
@@ -352,10 +397,12 @@
 
             setupCustomSelect('length-custom', ["4", "5", "6"], selectedLength, (val) => {
                 selectedLength = val;
+                document.getElementById("tikSound").play();
             });
 
             setupCustomSelect('diameter-custom', diameters, selectedDiameter, (val) => {
                 selectedDiameter = val;
+                document.getElementById("tikSound").play();
             });
 
             window.saveEntry = function () {
@@ -368,8 +415,19 @@
                             <td>${selectedLength}</td>
                             <td>${selectedDiameter}</td>
                             <td>${volume.toFixed(3)}</td>
-                            <td><button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити"><i class="fas fa-trash"></i></button></td>`;
+                            <td>
+                               <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                  <i class="fas fa-trash"></i>
+                               </button>
+                            </td>`;
 
+                    if(selectedLength == 4) {
+                        newRow.classList.add("length-4");
+                    } else if (selectedLength == 5) {
+                        newRow.classList.add("length-5");
+                    } else if (selectedLength == 6) {
+                        newRow.classList.add("length-6");
+                    }
                     const totalField = document.getElementById("totalVolume");
                     const currentTotal = parseFloat(totalField.textContent);
                     totalField.textContent = (currentTotal + volume).toFixed(3);
@@ -462,6 +520,8 @@
 
                 XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
                 XLSX.writeFile(wb, "forestvol_table.xlsx");
+
+                document.getElementById("tapSound").play();
             }
 
 
@@ -473,6 +533,8 @@
     <!-- У кінці body -->
     <audio id="clickSound" src="Sounds/click.mp3"></audio>
     <audio id="deleteSound" src="Sounds/delete.mp3"></audio>
+    <audio id="tapSound" src="Sounds/tap.mp3"></audio>
+    <audio id="tikSound" src="Sounds/tik.mp3"></audio>
 
 </body>
 </html>
