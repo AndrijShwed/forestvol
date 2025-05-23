@@ -398,12 +398,42 @@
                 document.getElementById("deleteSound").play();
             };
 
-            // Функція експорту в Excel з SheetJS
+            //// Функція експорту в Excel з SheetJS
+            //function exportTableToExcel() {
+            //    const table = document.getElementById('volumeBodyTable');
+            //    const wb = XLSX.utils.book_new();
+
+            //    // Збираємо дані з таблиці в масив масивів
+            //    const ws_data = [['L, m', 'Ø', 'V, куб']];
+            //    for (let row of table.tBodies[0].rows) {
+            //        const rowData = [
+            //            row.cells[0].textContent,
+            //            row.cells[1].textContent,
+            //            row.cells[2].textContent
+            //        ];
+            //        ws_data.push(rowData);
+            //    }
+
+            //    // Додаємо футер з загальною інформацією
+            //    const totalVolume = document.getElementById('totalVolume').textContent;
+            //    const totalCount = document.getElementById('totalCount').textContent;
+            //    ws_data.push([]);
+            //    ws_data.push(['Загалом:']);
+            //    ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
+            //    ws_data.push(['Кількість (Шт):', totalCount]);
+
+            //    // Створюємо лист
+            //    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+            //    XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
+
+            //    // Зберігаємо файл
+            //    XLSX.writeFile(wb, "forestvol_table.xlsx");
+            //}
+
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
                 const wb = XLSX.utils.book_new();
 
-                // Збираємо дані з таблиці в масив масивів
                 const ws_data = [['L, m', 'Ø', 'V, куб']];
                 for (let row of table.tBodies[0].rows) {
                     const rowData = [
@@ -414,7 +444,6 @@
                     ws_data.push(rowData);
                 }
 
-                // Додаємо футер з загальною інформацією
                 const totalVolume = document.getElementById('totalVolume').textContent;
                 const totalCount = document.getElementById('totalCount').textContent;
                 ws_data.push([]);
@@ -422,13 +451,20 @@
                 ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
                 ws_data.push(['Кількість (Шт):', totalCount]);
 
-                // Створюємо лист
                 const ws = XLSX.utils.aoa_to_sheet(ws_data);
-                XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
 
-                // Зберігаємо файл
+                // ➕ Налаштування ширини колонок (в одиницях "кількість символів")
+                ws['!cols'] = [
+                    { wch: 15 }, // для стовпця "L, m"
+                    { wch: 10 }, // для стовпця "Ø"
+                    { wch: 20 }  // для стовпця "V, куб"
+                ];
+
+                XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
                 XLSX.writeFile(wb, "forestvol_table.xlsx");
             }
+
+
 
             // Прив'язка кнопки
             document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
