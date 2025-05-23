@@ -288,8 +288,6 @@
 
     <!-- Підключення SheetJS -->
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/xlsx-style@0.8.13/dist/xlsx.full.min.js"></script>-->
-
 
     <script>
         // Ваш код для custom-select і saveEntry (без змін)
@@ -458,38 +456,6 @@
                 document.getElementById("deleteSound").play();
             };
 
-            //// Функція експорту в Excel з SheetJS
-            //function exportTableToExcel() {
-            //    const table = document.getElementById('volumeBodyTable');
-            //    const wb = XLSX.utils.book_new();
-
-            //    // Збираємо дані з таблиці в масив масивів
-            //    const ws_data = [['L, m', 'Ø', 'V, куб']];
-            //    for (let row of table.tBodies[0].rows) {
-            //        const rowData = [
-            //            row.cells[0].textContent,
-            //            row.cells[1].textContent,
-            //            row.cells[2].textContent
-            //        ];
-            //        ws_data.push(rowData);
-            //    }
-
-            //    // Додаємо футер з загальною інформацією
-            //    const totalVolume = document.getElementById('totalVolume').textContent;
-            //    const totalCount = document.getElementById('totalCount').textContent;
-            //    ws_data.push([]);
-            //    ws_data.push(['Загалом:']);
-            //    ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
-            //    ws_data.push(['Кількість (Шт):', totalCount]);
-
-            //    // Створюємо лист
-            //    const ws = XLSX.utils.aoa_to_sheet(ws_data);
-            //    XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
-
-            //    // Зберігаємо файл
-            //    XLSX.writeFile(wb, "forestvol_table.xlsx");
-            //}
-
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
                 const wb = XLSX.utils.book_new();
@@ -519,21 +485,6 @@
                     { wch: 10 }, // для стовпця "Ø"
                     { wch: 15 }  // для стовпця "V, куб"
                 ];
-
-                //// ➕ Центрування вмісту клітинок (горизонтально і вертикально)
-                //const range = XLSX.utils.decode_range(ws['!ref']);
-                //for (let R = range.s.r; R <= range.e.r; ++R) {
-                //    for (let C = range.s.c; C <= range.e.c; ++C) {
-                //        const cell_address = { c: C, r: R };
-                //        const cell_ref = XLSX.utils.encode_cell(cell_address);
-                //        if (!ws[cell_ref]) continue;
-                //        if (!ws[cell_ref].s) ws[cell_ref].s = {};
-                //        ws[cell_ref].s.alignment = {
-                //            horizontal: "center",
-                //            vertical: "center"
-                //        };
-                //    }
-                //}
 
                 XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
                 XLSX.writeFile(wb, "forestvol_table.xlsx");
