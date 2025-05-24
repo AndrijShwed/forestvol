@@ -457,74 +457,153 @@
                 document.getElementById("deleteSound").play();
             };
 
+            //function exportTableToExcel() {
+            //    const table = document.getElementById('volumeBodyTable');
+            //    const wb = XLSX.utils.book_new();
+
+            //    const ws_data = [['L, m', 'Ø', 'V, куб']];
+            //    for (let row of table.tBodies[0].rows) {
+            //        const rowData = [
+            //            row.cells[0].textContent,
+            //            row.cells[1].textContent,
+            //            row.cells[2].textContent
+            //        ];
+            //        ws_data.push(rowData);
+            //    }
+
+            //    const totalVolume = document.getElementById('totalVolume').textContent;
+            //    const totalCount = document.getElementById('totalCount').textContent;
+
+            //    ws_data.push([]);
+            //    ws_data.push(['Загалом:']);
+            //    ws_data.push(['Сумарний об’єм (V, куб):', '', totalVolume]);
+            //    ws_data.push(['Кількість (Шт):', '', totalCount]);
+
+            //    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+            //    for (let cellAddress in ws) {
+            //        if (cellAddress[0] === '!') continue;
+
+            //        if (!ws[cellAddress].s) ws[cellAddress].s = {};
+
+            //        ws[cellAddress].s.alignment = {
+            //            horizontal: "center",
+            //            vertical: "center"
+            //        };
+            //    }
+
+            //    ws['!cols'] = [
+            //        { wch: 12 },
+            //        { wch: 12 },
+            //        { wch: 12 }
+            //    ];
+
+            //    const summaryStartRow = ws_data.length - 3;
+            //    ws['!merges'] = [
+            //        { s: { r: summaryStartRow, c: 0 }, e: { r: summaryStartRow, c: 1 } },
+            //        { s: { r: summaryStartRow + 1, c: 0 }, e: { r: summaryStartRow + 1, c: 1 } },
+            //        { s: { r: summaryStartRow + 2, c: 0 }, e: { r: summaryStartRow + 2, c: 1 } }
+            //    ];
+                
+            //    const boldCenterStyle = {
+            //        font: { bold: true },
+            //        alignment: { horizontal: "center" }
+            //    };
+
+            //    ['A' + (summaryStartRow + 1), 'A' + (summaryStartRow + 2), 'A' + (summaryStartRow + 3)].forEach(cell => {
+            //        if (ws[cell]) ws[cell].s = boldCenterStyle;
+            //    });
+
+            //    ['A1', 'B1', 'C1'].forEach(cell => {
+            //        if (ws[cell]) ws[cell].s = boldCenterStyle;
+            //    });
+
+            //    XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
+
+            //    XLSX.writeFile(wb, "forestvol_table.xlsx");
+
+            //    document.getElementById("tapSound").play();
+            //}
+
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
                 const wb = XLSX.utils.book_new();
 
+                // Додаємо заголовки
                 const ws_data = [['L, m', 'Ø', 'V, куб']];
+
+                // Читаємо дані з таблиці
                 for (let row of table.tBodies[0].rows) {
                     const rowData = [
-                        row.cells[0].textContent,
-                        row.cells[1].textContent,
-                        row.cells[2].textContent
+                        row.cells[0].textContent.trim(),
+                        row.cells[1].textContent.trim(),
+                        row.cells[2].textContent.trim()
                     ];
                     ws_data.push(rowData);
                 }
 
-                const totalVolume = document.getElementById('totalVolume').textContent;
-                const totalCount = document.getElementById('totalCount').textContent;
+                // Підсумкові значення
+                const totalVolume = document.getElementById('totalVolume').textContent.trim();
+                const totalCount = document.getElementById('totalCount').textContent.trim();
 
+                // Підсумкові рядки
                 ws_data.push([]);
-                ws_data.push(['Загалом:']);
+                ws_data.push(['Загалом:', '', '']);
                 ws_data.push(['Сумарний об’єм (V, куб):', '', totalVolume]);
                 ws_data.push(['Кількість (Шт):', '', totalCount]);
 
+                // Створюємо лист
                 const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
+                // Центруємо всі клітинки
                 for (let cellAddress in ws) {
                     if (cellAddress[0] === '!') continue;
-
                     if (!ws[cellAddress].s) ws[cellAddress].s = {};
-
                     ws[cellAddress].s.alignment = {
                         horizontal: "center",
                         vertical: "center"
                     };
                 }
 
+                // Ширина колонок
                 ws['!cols'] = [
                     { wch: 12 },
                     { wch: 12 },
                     { wch: 12 }
                 ];
 
+                // Об'єднання тільки для "Загалом:"
                 const summaryStartRow = ws_data.length - 3;
                 ws['!merges'] = [
-                    { s: { r: summaryStartRow, c: 0 }, e: { r: summaryStartRow, c: 1 } },
-                    { s: { r: summaryStartRow + 1, c: 0 }, e: { r: summaryStartRow + 1, c: 1 } },
-                    { s: { r: summaryStartRow + 2, c: 0 }, e: { r: summaryStartRow + 2, c: 1 } }
+                    { s: { r: summaryStartRow, c: 0 }, e: { r: summaryStartRow, c: 1 } }
                 ];
-                
+
+                // Стиль: жирний + центрування
                 const boldCenterStyle = {
                     font: { bold: true },
-                    alignment: { horizontal: "center" }
+                    alignment: { horizontal: "center", vertical: "center" }
                 };
 
-                ['A' + (summaryStartRow + 1), 'A' + (summaryStartRow + 2), 'A' + (summaryStartRow + 3)].forEach(cell => {
+                // Клітинки, які мають бути жирними
+                const boldCells = [
+                    'A1', 'B1', 'C1', // Заголовок
+                    'A' + (summaryStartRow + 1), 'C' + (summaryStartRow + 1), // Сумарний об’єм
+                    'A' + (summaryStartRow + 2), 'C' + (summaryStartRow + 2)  // Кількість
+                ];
+
+                // Застосовуємо стиль
+                boldCells.forEach(cell => {
                     if (ws[cell]) ws[cell].s = boldCenterStyle;
                 });
 
-                ['A1', 'B1', 'C1'].forEach(cell => {
-                   /* if (ws[cell]) ws[cell].s = { font: { bold: true } };*/
-                    if (ws[cell]) ws[cell].s = boldCenterStyle;
-                });
-
+                // Додаємо аркуш та зберігаємо файл
                 XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
-
                 XLSX.writeFile(wb, "forestvol_table.xlsx");
 
+                // Програвання звуку
                 document.getElementById("tapSound").play();
             }
+
 
             // Прив'язка кнопки
             document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
