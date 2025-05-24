@@ -509,7 +509,10 @@
                 const totalVolume = document.getElementById('totalVolume').textContent;
                 const totalCount = document.getElementById('totalCount').textContent;
 
-                
+                ws_data.push([]);
+                ws_data.push(['Загалом:']);
+                ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
+                ws_data.push(['Кількість (Шт):', totalCount]);
 
                 const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
@@ -525,12 +528,7 @@
                     { s: { r: summaryStartRow + 1, c: 0 }, e: { r: summaryStartRow + 1, c: 1 } },
                     { s: { r: summaryStartRow + 2, c: 0 }, e: { r: summaryStartRow + 2, c: 1 } }
                 ];
-
-                ws_data.push([]);
-                ws_data.push(['Загалом:']);
-                ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
-                ws_data.push(['Кількість (Шт):', totalCount]);
-
+                
                 const boldCenterStyle = {
                     font: { bold: true },
                     alignment: { horizontal: "center" }
