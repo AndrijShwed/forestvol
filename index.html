@@ -468,6 +468,10 @@
                         row.cells[1].textContent,
                         row.cells[2].textContent
                     ];
+                    ws[cellAddress].s.alignment = {
+                        horizontal: "center",
+                        vertical: "center"
+                    };
                     ws_data.push(rowData);
                 }
 
