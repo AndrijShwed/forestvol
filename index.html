@@ -509,16 +509,13 @@
                 const totalVolume = document.getElementById('totalVolume').textContent;
                 const totalCount = document.getElementById('totalCount').textContent;
 
-                ws_data.push([]);
-                ws_data.push(['Загалом:']);
-                ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
-                ws_data.push(['Кількість (Шт):', totalCount]);
+                
 
                 const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
                 ws['!cols'] = [
-                    { wch: 22 },
-                    { wch: 10 },
+                    { wch: 15 },
+                    { wch: 15 },
                     { wch: 15 }
                 ];
 
@@ -528,6 +525,11 @@
                     { s: { r: summaryStartRow + 1, c: 0 }, e: { r: summaryStartRow + 1, c: 1 } },
                     { s: { r: summaryStartRow + 2, c: 0 }, e: { r: summaryStartRow + 2, c: 1 } }
                 ];
+
+                ws_data.push([]);
+                ws_data.push(['Загалом:']);
+                ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
+                ws_data.push(['Кількість (Шт):', totalCount]);
 
                 const boldCenterStyle = {
                     font: { bold: true },
@@ -550,6 +552,7 @@
 
             // Прив'язка кнопки
             document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
+
         });
     </script>
     <!-- У кінці body -->
