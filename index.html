@@ -511,15 +511,15 @@
 
                 ws_data.push([]);
                 ws_data.push(['Загалом:']);
-                ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
-                ws_data.push(['Кількість (Шт):', totalCount]);
+                ws_data.push(['Сумарний об’єм (V, куб):', '', totalVolume]);
+                ws_data.push(['Кількість (Шт):', '', totalCount]);
 
                 const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
                 ws['!cols'] = [
-                    { wch: 15 },
-                    { wch: 15 },
-                    { wch: 15 }
+                    { wch: 12 },
+                    { wch: 12 },
+                    { wch: 12 }
                 ];
 
                 const summaryStartRow = ws_data.length - 3;
