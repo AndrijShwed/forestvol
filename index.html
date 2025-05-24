@@ -495,8 +495,9 @@
 
                 // Жирний + центр + рамка
                 const boldCenterStyle = {
-                    font: { bold: true },
-                    ...commonStyle
+                    font: { cz: 14, bold: true },
+                    alignment: commonStyle.alignment,
+                    border: commonStyle.border
                 };
 
                 // Стилізуємо всі клітинки
