@@ -457,41 +457,6 @@
                 document.getElementById("deleteSound").play();
             };
 
-            //function exportTableToExcel() {
-            //    const table = document.getElementById('volumeBodyTable');
-            //    const wb = XLSX.utils.book_new();
-
-            //    const ws_data = [['L, m', 'Ø', 'V, куб']];
-            //    for (let row of table.tBodies[0].rows) {
-            //        const rowData = [
-            //            row.cells[0].textContent,
-            //            row.cells[1].textContent,
-            //            row.cells[2].textContent
-            //        ];
-            //        ws_data.push(rowData);
-            //    }
-
-            //    const totalVolume = document.getElementById('totalVolume').textContent;
-            //    const totalCount = document.getElementById('totalCount').textContent;
-            //    ws_data.push([]);
-            //    ws_data.push(['Загалом:']);
-            //    ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
-            //    ws_data.push(['Кількість (Шт):', totalCount]);
-
-            //    const ws = XLSX.utils.aoa_to_sheet(ws_data);
-            //    // ➕ Налаштування ширини колонок (в одиницях "кількість символів")
-            //    ws['!cols'] = [
-            //        { wch: 22 }, // для стовпця "L, m"
-            //        { wch: 10 }, // для стовпця "Ø"
-            //        { wch: 15 }  // для стовпця "V, куб"
-            //    ];
-
-            //    XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
-            //    XLSX.writeFile(wb, "forestvol_table.xlsx");
-
-            //    document.getElementById("tapSound").play();
-            //}
-
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
                 const wb = XLSX.utils.book_new();
