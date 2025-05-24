@@ -287,7 +287,8 @@
     </div>
 
     <!-- Підключення SheetJS -->
-    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <!--<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.min.js"></script>
 
     <script>
         // Ваш код для custom-select і saveEntry (без змін)
@@ -412,14 +413,14 @@
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                                <td>${selectedLength}</td>
-                                <td>${selectedDiameter}</td>
-                                <td>${volume.toFixed(3)}</td>
-                                <td>
-                                   <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
-                                      <i class="fas fa-trash"></i>
-                                   </button>
-                                </td>`;
+                                    <td>${selectedLength}</td>
+                                    <td>${selectedDiameter}</td>
+                                    <td>${volume.toFixed(3)}</td>
+                                    <td>
+                                       <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                          <i class="fas fa-trash"></i>
+                                       </button>
+                                    </td>`;
 
                     if (selectedLength == 4) {
                         newRow.classList.add("length-4");
@@ -456,6 +457,41 @@
                 document.getElementById("deleteSound").play();
             };
 
+            //function exportTableToExcel() {
+            //    const table = document.getElementById('volumeBodyTable');
+            //    const wb = XLSX.utils.book_new();
+
+            //    const ws_data = [['L, m', 'Ø', 'V, куб']];
+            //    for (let row of table.tBodies[0].rows) {
+            //        const rowData = [
+            //            row.cells[0].textContent,
+            //            row.cells[1].textContent,
+            //            row.cells[2].textContent
+            //        ];
+            //        ws_data.push(rowData);
+            //    }
+
+            //    const totalVolume = document.getElementById('totalVolume').textContent;
+            //    const totalCount = document.getElementById('totalCount').textContent;
+            //    ws_data.push([]);
+            //    ws_data.push(['Загалом:']);
+            //    ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
+            //    ws_data.push(['Кількість (Шт):', totalCount]);
+
+            //    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+            //    // ➕ Налаштування ширини колонок (в одиницях "кількість символів")
+            //    ws['!cols'] = [
+            //        { wch: 22 }, // для стовпця "L, m"
+            //        { wch: 10 }, // для стовпця "Ø"
+            //        { wch: 15 }  // для стовпця "V, куб"
+            //    ];
+
+            //    XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
+            //    XLSX.writeFile(wb, "forestvol_table.xlsx");
+
+            //    document.getElementById("tapSound").play();
+            //}
+
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
                 const wb = XLSX.utils.book_new();
@@ -472,6 +508,7 @@
 
                 const totalVolume = document.getElementById('totalVolume').textContent;
                 const totalCount = document.getElementById('totalCount').textContent;
+
                 ws_data.push([]);
                 ws_data.push(['Загалом:']);
                 ws_data.push(['Сумарний об’єм (V, куб):', totalVolume]);
@@ -479,20 +516,37 @@
 
                 const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
-                // ➕ Налаштування ширини колонок (в одиницях "кількість символів")
                 ws['!cols'] = [
-                    { wch: 22 }, // для стовпця "L, m"
-                    { wch: 10 }, // для стовпця "Ø"
-                    { wch: 15 }  // для стовпця "V, куб"
+                    { wch: 22 },
+                    { wch: 10 },
+                    { wch: 15 }
                 ];
+
+                const summaryStartRow = ws_data.length - 3;
+                ws['!merges'] = [
+                    { s: { r: summaryStartRow, c: 0 }, e: { r: summaryStartRow, c: 1 } },
+                    { s: { r: summaryStartRow + 1, c: 0 }, e: { r: summaryStartRow + 1, c: 1 } },
+                    { s: { r: summaryStartRow + 2, c: 0 }, e: { r: summaryStartRow + 2, c: 1 } }
+                ];
+
+                const boldCenterStyle = {
+                    font: { bold: true },
+                    alignment: { horizontal: "center" }
+                };
+
+                ['A' + (summaryStartRow + 1), 'A' + (summaryStartRow + 2), 'A' + (summaryStartRow + 3)].forEach(cell => {
+                    if (ws[cell]) ws[cell].s = boldCenterStyle;
+                });
+
+                ['A1', 'B1', 'C1'].forEach(cell => {
+                    if (ws[cell]) ws[cell].s = { font: { bold: true } };
+                });
 
                 XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
                 XLSX.writeFile(wb, "forestvol_table.xlsx");
 
                 document.getElementById("tapSound").play();
             }
-
-
 
             // Прив'язка кнопки
             document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
