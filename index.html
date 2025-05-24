@@ -516,6 +516,17 @@
 
                 const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
+                for (let cellAddress in ws) {
+                    if (cellAddress[0] === '!') continue;
+
+                    if (!ws[cellAddress].s) ws[cellAddress].s = {};
+
+                    ws[cellAddress].s.alignment = {
+                        horizontal: "center",
+                        vertical: "center"
+                    };
+                }
+
                 ws['!cols'] = [
                     { wch: 12 },
                     { wch: 12 },
@@ -543,6 +554,7 @@
                 });
 
                 XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
+
                 XLSX.writeFile(wb, "forestvol_table.xlsx");
 
                 document.getElementById("tapSound").play();
