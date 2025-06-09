@@ -229,7 +229,8 @@
             background-color: lightgreen;
         }
     </style>
-
+</head>
+<body>
     <script>
         const IsPro = true;
         // Наприклад, перевірка параметра ?pro=1 в URL
@@ -240,10 +241,6 @@
             window.location.href = 'indexpro.html';
         }
     </script>
-
-
-</head>
-<body>
     <div class="container">
         <div class="left">
             <div class="table-wrapper">
@@ -428,14 +425,14 @@
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                                    <td>${selectedLength}</td>
-                                    <td>${selectedDiameter}</td>
-                                    <td>${volume.toFixed(3)}</td>
-                                    <td>
-                                       <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
-                                          <i class="fas fa-trash"></i>
-                                       </button>
-                                    </td>`;
+                                        <td>${selectedLength}</td>
+                                        <td>${selectedDiameter}</td>
+                                        <td>${volume.toFixed(3)}</td>
+                                        <td>
+                                           <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                              <i class="fas fa-trash"></i>
+                                           </button>
+                                        </td>`;
 
                     if (selectedLength == 4) {
                         newRow.classList.add("length-4");
@@ -537,7 +534,7 @@
                 // Клітинки, які мають бути жирними
                 const boldCells = [
                     'A1', 'B1', 'C1', // заголовок
-                    'A' + (summaryStartRow +1), // "Загалом"
+                    'A' + (summaryStartRow + 1), // "Загалом"
                     'A' + (summaryStartRow + 2), 'C' + (summaryStartRow + 2), // Об’єм
                     'A' + (summaryStartRow + 3), 'C' + (summaryStartRow + 3)  // Кількість
                 ];
