@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>forestvol</title>
+    <link rel="icon" href="Forest.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="Image/Forest.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="Image/ForestVol1.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            overflow-x: auto;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .left {
+            flex: 0 0 68%;
+        }
+
+        .right {
+            flex: 0 0 28%;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        .table-wrapper {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            font-size: 16px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 4px 6px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #volumeBodyTable td {
+            padding: 2px 4px;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: #f0f0f0;
+            z-index: 2;
+        }
+
+        tfoot td {
+            position: sticky;
+            bottom: 0;
+            background-color: aquamarine;
+            z-index: 1;
+            font-weight: bold;
+        }
+
+        thead th, tfoot td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 6px;
+        }
+
+        .scrollable-body {
+            overflow-y: auto;
+            flex-grow: 1;
+            scroll-padding-bottom: 40px;
+            padding-bottom: 40px;
+        }
+
+        label {
+            font-size: 20px;
+            margin-top: 12px;
+            display: block;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 14px 12px;
+            width: 100%;
+            margin-top: 12px;
+            box-sizing: border-box;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: darkgreen;
+            }
+
+        #volumeBodyTable td {
+            height: 44px; /* або інша бажана висота рядка */
+            padding: 0; /* прибираємо зайві відступи */
+        }
+
+        .delete-button {
+            background-color: #e53935;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: auto; /* центрування всередині клітинки */
+        }
+
+            .delete-button i {
+                font-size: 14px;
+            }
+
+            /* .delete-button {
+            background-color: #e53935;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }*/
+
+
+            .delete-button:hover {
+                background-color: #c62828;
+            }
+
+
+        /* Кастомні селекти */
+        .custom-select {
+            position: relative;
+            font-size: 24px;
+            user-select: none;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .select-selected {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 14px 12px;
+            cursor: pointer;
+            position: relative;
+        }
+
+            .select-selected:after {
+                content: "\25BC";
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+            }
+
+        .select-items {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            width: 100%;
+            z-index: 99;
+            max-height: 57vh;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+            .select-items div {
+                padding: 14px 12px;
+                cursor: pointer;
+                font-size: 24px;
+            }
+
+                .select-items div:hover {
+                    background-color: #f1f1f1;
+                }
+
+        .select-hide {
+            display: none;
+        }
+
+        #exportExcelBtn {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%; /* Щоб була така сама ширина, як кнопка 'Зберегти' */
+            background-color: #007ACC;
+            color: white;
+            border: none;
+            padding: 14px 12px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .length-4 {
+            background-color: yellow;
+        }
+
+        .length-5 {
+            background-color: lightblue;
+        }
+
+        .length-6 {
+            background-color: lightgreen;
+        }
+    </style>
+
+    <!--<script>
+        // Наприклад, перевірка параметра ?pro=1 в URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPro = urlParams.get('pro') === '1';
+
+        if (isPro) {
+            window.location.href = 'indexpro.html';
+        }
+    </script>-->
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>L, m</th>
+                            <th>
+                                <span style="font-size: 20px;">&oslash;</span><span style="font-size: 16px;">, сm</span>
+                            </th>
+                            <th>V, куб</th>
+                            <th>Дія</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="scrollable-body">
+                    <table id="volumeBodyTable">
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <table>
+                    <tfoot>
+                        <tr>
+                            <td>V:</td>
+                            <td id="totalVolume">0</td>
+                            <td>Шт:</td>
+                            <td id="totalCount">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="right">
+            <label>Довжина:</label>
+            <div class="custom-select" id="length-custom">
+                <div class="select-selected">4</div>
+                <div class="select-items select-hide">
+                    <div data-value="4">4</div>
+                    <div data-value="5">5</div>
+                    <div data-value="6">6</div>
+                </div>
+            </div>
+
+            <label>Діаметр:</label>
+            <div class="custom-select" id="diameter-custom">
+                <div class="select-selected">16</div>
+                <div class="select-items select-hide"></div>
+            </div>
+
+            <button onclick="saveEntry()">Додати</button>
+
+            <!-- Кнопка для збереження Excel -->
+            <!--<button id="exportExcelBtn" style="background-color: #007ACC; ">Зберегти в Excel</button>-->
+        </div>
+    </div>
+
+    <!-- Підключення SheetJS -->
+    <!--<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.min.js"></script>
+
+    <script>
+        // Ваш код для custom-select і saveEntry (без змін)
+        // ------------------------------------------------
+        const volumeLookup = {
+            "4-16": 0.095, "5-16": 0.124, "6-16": 0.155,
+            "4-17": 0.1075, "5-17": 0.14, "6-17": 0.1745,
+            "4-18": 0.12, "5-18": 0.156, "6-18": 0.194,
+            "4-19": 0.1335, "5-19": 0.173, "6-19": 0.212,
+            "4-20": 0.147, "5-20": 0.19, "6-20": 0.23,
+            "4-21": 0.1625, "5-21": 0.21, "6-21": 0.255,
+            "4-22": 0.178, "5-22": 0.23, "6-22": 0.28,
+            "4-23": 0.194, "5-23": 0.25, "6-23": 0.305,
+            "4-24": 0.21, "5-24": 0.27, "6-24": 0.33,
+            "4-25": 0.23, "5-25": 0.295, "6-25": 0.36,
+            "4-26": 0.25, "5-26": 0.32, "6-26": 0.39,
+            "4-27": 0.27, "5-27": 0.345, "6-27": 0.42,
+            "4-28": 0.29, "5-28": 0.37, "6-28": 0.45,
+            "4-29": 0.31, "5-29": 0.395, "6-29": 0.485,
+            "4-30": 0.33, "5-30": 0.42, "6-30": 0.52,
+            "4-31": 0.355, "5-31": 0.45, "6-31": 0.555,
+            "4-32": 0.38, "5-32": 0.48, "6-32": 0.59,
+            "4-33": 0.405, "5-33": 0.51, "6-33": 0.625,
+            "4-34": 0.43, "5-34": 0.54, "6-34": 0.66,
+            "4-35": 0.455, "5-35": 0.57, "6-35": 0.7,
+            "4-36": 0.48, "5-36": 0.6, "6-36": 0.74,
+            "4-37": 0.505, "5-37": 0.635, "6-37": 0.78,
+            "4-38": 0.53, "5-38": 0.67, "6-38": 0.82,
+            "4-39": 0.555, "5-39": 0.705, "6-39": 0.86,
+            "4-40": 0.58, "5-40": 0.74, "6-40": 0.9,
+            "4-41": 0.61, "5-41": 0.775, "6-41": 0.95,
+            "4-42": 0.64, "5-42": 0.81, "6-42": 1.0,
+            "4-43": 0.67, "5-43": 0.85, "6-43": 1.045,
+            "4-44": 0.7, "5-44": 0.89, "6-44": 1.09,
+            "4-45": 0.735, "5-45": 0.935, "6-45": 1.14,
+            "4-46": 0.77, "5-46": 0.98, "6-46": 1.19,
+            "4-47": 0.805, "5-47": 1.02, "6-47": 1.245,
+            "4-48": 0.84, "5-48": 1.06, "6-48": 1.3,
+            "4-49": 0.875, "5-49": 1.105, "6-49": 1.355,
+            "4-50": 0.91, "5-50": 1.15, "6-50": 1.41,
+            "4-51": 0.95, "5-51": 1.2, "6-51": 1.47,
+            "4-52": 0.99, "5-52": 1.25, "6-52": 1.53,
+            "4-53": 1.03, "5-53": 1.3, "6-53": 1.59,
+            "4-54": 1.07, "5-54": 1.35, "6-54": 1.65,
+            "4-55": 1.115, "5-55": 1.405, "6-55": 1.715,
+            "4-56": 1.16, "5-56": 1.46, "6-56": 1.78,
+            "4-57": 1.205, "5-57": 1.515, "6-57": 1.845,
+            "4-58": 1.25, "5-58": 1.57, "6-58": 1.91,
+            "4-59": 1.29, "5-59": 1.625, "6-59": 1.98,
+            "4-60": 1.33, "5-60": 1.68, "6-60": 2.05
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // custom-select setup, як у вас (скорочено)
+            // ------------------------------------------------
+            function setupCustomSelect(customSelectId, valuesArray, defaultValue, onChange) {
+                const customSelect = document.getElementById(customSelectId);
+                const selected = customSelect.querySelector('.select-selected');
+                const itemsContainer = customSelect.querySelector('.select-items');
+
+                itemsContainer.innerHTML = '';
+                valuesArray.forEach(val => {
+                    const div = document.createElement('div');
+                    div.textContent = val;
+                    div.dataset.value = val;
+                    itemsContainer.appendChild(div);
+                });
+
+                selected.textContent = defaultValue;
+
+                selected.addEventListener('click', () => {
+                    closeAllCustomSelects(customSelect);
+                    itemsContainer.classList.toggle('select-hide');
+                    selected.classList.toggle('active');
+                });
+
+                itemsContainer.querySelectorAll('div').forEach(option => {
+                    option.addEventListener('click', () => {
+                        selected.textContent = option.textContent;
+                        itemsContainer.classList.add('select-hide');
+                        selected.classList.remove('active');
+                        if (typeof onChange === 'function') onChange(option.dataset.value);
+                    });
+                });
+            }
+
+            function closeAllCustomSelects(exceptionSelect) {
+                document.querySelectorAll('.custom-select').forEach(cs => {
+                    if (cs !== exceptionSelect) {
+                        cs.querySelector('.select-items')?.classList.add('select-hide');
+                        cs.querySelector('.select-selected')?.classList.remove('active');
+                    }
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                if (![...document.querySelectorAll('.custom-select')].some(cs => cs.contains(e.target))) {
+                    closeAllCustomSelects(null);
+                }
+            });
+
+            const diameters = [];
+            for (let d = 16; d <= 60; d++) diameters.push(d.toString());
+
+            let selectedLength = "4";
+            let selectedDiameter = "16";
+
+            setupCustomSelect('length-custom', ["4", "5", "6"], selectedLength, (val) => {
+                selectedLength = val;
+                document.getElementById("tikSound").play();
+            });
+
+            setupCustomSelect('diameter-custom', diameters, selectedDiameter, (val) => {
+                selectedDiameter = val;
+                document.getElementById("tikSound").play();
+            });
+
+            window.saveEntry = function () {
+                const key = `${selectedLength}-${selectedDiameter}`;
+                const volume = volumeLookup[key];
+                if (volume !== undefined) {
+                    const tableBody = document.querySelector("#volumeBodyTable tbody");
+                    const newRow = tableBody.insertRow();
+                    newRow.innerHTML = `
+                                    <td>${selectedLength}</td>
+                                    <td>${selectedDiameter}</td>
+                                    <td>${volume.toFixed(3)}</td>
+                                    <td>
+                                       <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                          <i class="fas fa-trash"></i>
+                                       </button>
+                                    </td>`;
+
+                    if (selectedLength == 4) {
+                        newRow.classList.add("length-4");
+                    } else if (selectedLength == 5) {
+                        newRow.classList.add("length-5");
+                    } else if (selectedLength == 6) {
+                        newRow.classList.add("length-6");
+                    }
+                    const totalField = document.getElementById("totalVolume");
+                    const currentTotal = parseFloat(totalField.textContent);
+                    totalField.textContent = (currentTotal + volume).toFixed(3);
+
+                    document.getElementById("totalCount").textContent = tableBody.rows.length;
+                    document.querySelector('.scrollable-body').scrollTop =
+                        document.querySelector('.scrollable-body').scrollHeight;
+
+                    document.getElementById("clickSound").play();
+                } else {
+                    alert("Значення не знайдено у таблиці.");
+                }
+            };
+
+            window.deleteEntry = function (button, volume) {
+                const row = button.closest('tr');
+                row.remove();
+
+                const totalField = document.getElementById("totalVolume");
+                const currentTotal = parseFloat(totalField.textContent);
+                totalField.textContent = (currentTotal - volume).toFixed(3);
+
+                const tableBody = document.querySelector("#volumeBodyTable tbody");
+                document.getElementById("totalCount").textContent = tableBody.rows.length;
+
+                document.getElementById("deleteSound").play();
+            };
+
+            function exportTableToExcel() {
+                const table = document.getElementById('volumeBodyTable');
+                const wb = XLSX.utils.book_new();
+
+                const ws_data = [['L, m', 'Ø', 'V, куб']];
+                for (let row of table.tBodies[0].rows) {
+                    const rowData = [
+                        row.cells[0].textContent.trim(),
+                        row.cells[1].textContent.trim(),
+                        row.cells[2].textContent.trim()
+                    ];
+                    ws_data.push(rowData);
+                }
+
+                const totalVolume = document.getElementById('totalVolume').textContent.trim();
+                const totalCount = document.getElementById('totalCount').textContent.trim();
+
+                ws_data.push([]); // Порожній рядок
+                ws_data.push(['Загалом']); // Об'єднаний рядок
+                ws_data.push(['Сумарний об’єм (V, куб):', '', totalVolume]);
+                ws_data.push(['Кількість (Шт):', '', totalCount]);
+
+                const ws = XLSX.utils.aoa_to_sheet(ws_data);
+
+                // Загальний стиль: центр + рамка
+                const commonStyle = {
+                    font: { sz: 14 },
+                    alignment: { horizontal: "center", vertical: "center" },
+                    border: {
+                        top: { style: "thin", color: { rgb: "000000" } },
+                        right: { style: "thin", color: { rgb: "000000" } },
+                        bottom: { style: "thin", color: { rgb: "000000" } },
+                        left: { style: "thin", color: { rgb: "000000" } }
+                    }
+                };
+
+                // Жирний + центр + рамка
+                const boldCenterStyle = {
+                    font: { sz: 14, bold: true },
+                    alignment: commonStyle.alignment,
+                    border: commonStyle.border
+                };
+
+                // Стилізуємо всі клітинки
+                for (let cellAddress in ws) {
+                    if (cellAddress[0] === '!') continue;
+                    ws[cellAddress].s = { ...commonStyle };
+                }
+
+                // Встановлення ширини колонок
+                ws['!cols'] = [
+                    { wch: 18 }, { wch: 18 }, { wch: 15 }
+                ];
+
+                // Об’єднання клітинок
+                const summaryStartRow = ws_data.length - 3;
+                ws['!merges'] = [
+                    { s: { r: summaryStartRow, c: 0 }, e: { r: summaryStartRow, c: 2 } }, // "Загалом"
+                    { s: { r: summaryStartRow + 1, c: 0 }, e: { r: summaryStartRow + 1, c: 1 } }, // Сума
+                    { s: { r: summaryStartRow + 2, c: 0 }, e: { r: summaryStartRow + 2, c: 1 } }  // Кількість
+                ];
+
+                // Клітинки, які мають бути жирними
+                const boldCells = [
+                    'A1', 'B1', 'C1', // заголовок
+                    'A' + (summaryStartRow +1), // "Загалом"
+                    'A' + (summaryStartRow + 2), 'C' + (summaryStartRow + 2), // Об’єм
+                    'A' + (summaryStartRow + 3), 'C' + (summaryStartRow + 3)  // Кількість
+                ];
+
+                boldCells.forEach(cell => {
+                    if (ws[cell]) ws[cell].s = { ...boldCenterStyle };
+                });
+
+                XLSX.utils.book_append_sheet(wb, ws, "Таблиця");
+                XLSX.writeFile(wb, "forestvol_table.xlsx");
+                document.getElementById("tapSound").play();
+            }
+
+
+            // Прив'язка кнопки
+            document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
+
+        });
+    </script>
+    <!-- У кінці body -->
+    <audio id="clickSound" src="Sounds/click.mp3"></audio>
+    <audio id="deleteSound" src="Sounds/delete.mp3"></audio>
+    <audio id="tapSound" src="Sounds/tap.mp3"></audio>
+    <audio id="tikSound" src="Sounds/tik.mp3"></audio>
+
+</body>
+</html>
