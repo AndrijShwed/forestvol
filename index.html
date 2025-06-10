@@ -476,15 +476,18 @@
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
                 const wb = XLSX.utils.book_new();
+                let i = 1;
 
-                const ws_data = [['L, m', 'Ø', 'V, куб']];
+                const ws_data = [['№ п/п', 'L, m', 'Ø', 'V, куб']];
                 for (let row of table.tBodies[0].rows) {
                     const rowData = [
+                        i,
                         row.cells[0].textContent.trim(),
                         row.cells[1].textContent.trim(),
                         row.cells[2].textContent.trim()
                     ];
                     ws_data.push(rowData);
+                    i++;
                 }
 
                 const totalVolume = document.getElementById('totalVolume').textContent.trim();
