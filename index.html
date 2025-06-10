@@ -531,9 +531,9 @@
                 ];
 
                 // Об’єднання клітинок
-                const summaryStartRow = ws_data.length - 3;
+                const summaryStartRow = ws_data.length - 4;
                 ws['!merges'] = [
-                    { s: { r: summaryStartRow, c: 0 }, e: { r: summaryStartRow, c: 2 } }, // "Загалом"
+                    { s: { r: summaryStartRow, c: 0 }, e: { r: summaryStartRow, c: 3 } }, // "Загалом"
                     { s: { r: summaryStartRow + 1, c: 0 }, e: { r: summaryStartRow + 1, c: 1 } }, // Сума
                     { s: { r: summaryStartRow + 2, c: 0 }, e: { r: summaryStartRow + 2, c: 1 } }  // Кількість
                 ];
