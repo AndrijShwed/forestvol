@@ -215,6 +215,15 @@
         .length-6 {
             background-color: lightgreen;
         }
+
+        .row-number {
+            font-weight: bold; /* жирний текст */
+            color: #007bff; /* синій колір тексту */
+            background-color: #e0f0ff; /* світло-блакитний фон */
+            padding: 4px 8px; /* відступи */
+            border-radius: 4px; /* закруглення */
+        }
+
     </style>
 </head>
 <body>
@@ -405,7 +414,7 @@
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                                        <td>${count}</td>
+                                        <td class="row-number">${count}</td>
                                         <td>${selectedLength}</td>
                                         <td>${selectedDiameter}</td>
                                         <td>${volume.toFixed(3)}</td>
