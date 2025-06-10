@@ -439,6 +439,7 @@
             window.deleteEntry = function (button, volume) {
                 const row = button.closest('tr');
                 row.remove();
+                updateRowNumbers();
 
                 const totalField = document.getElementById("totalVolume");
                 const currentTotal = parseFloat(totalField.textContent);
@@ -449,6 +450,16 @@
 
                 document.getElementById("deleteSound").play();
             };
+
+            function updateRowNumbers() {
+                const rows = document.querySelectorAll("#tableBody tr");
+                rows.forEach((row, index) => {
+                    const numberCell = row.querySelector(".row-number");
+                    if (numberCell) {
+                        numberCell.textContent = index + 1;
+                    }
+                });
+            }
 
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
