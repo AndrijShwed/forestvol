@@ -385,6 +385,7 @@
 
             let selectedLength = "4";
             let selectedDiameter = "16";
+            let count = 0;
 
             setupCustomSelect('length-custom', ["4", "5", "6"], selectedLength, (val) => {
                 selectedLength = val;
@@ -397,12 +398,14 @@
             });
 
             window.saveEntry = function () {
+                count++;
                 const key = `${selectedLength}-${selectedDiameter}`;
                 const volume = volumeLookup[key];
                 if (volume !== undefined) {
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
+                                        <td>${count}</td>
                                         <td>${selectedLength}</td>
                                         <td>${selectedDiameter}</td>
                                         <td>${volume.toFixed(3)}</td>
