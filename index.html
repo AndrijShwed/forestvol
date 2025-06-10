@@ -482,9 +482,9 @@
                 for (let row of table.tBodies[0].rows) {
                     const rowData = [
                         i,
-                        row.cells[0].textContent.trim(),
                         row.cells[1].textContent.trim(),
-                        row.cells[2].textContent.trim()
+                        row.cells[2].textContent.trim(),
+                        row.cells[3].textContent.trim()
                     ];
                     ws_data.push(rowData);
                     i++;
