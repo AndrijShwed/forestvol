@@ -452,13 +452,13 @@
             };
 
             function updateRowNumbers() {
-                const rows = document.querySelectorAll("#tableBody tr");
-                rows.forEach((row, index) => {
-                    const numberCell = row.querySelector(".row-number");
-                    if (numberCell) {
-                        numberCell.textContent = index + 1;
-                    }
-                });
+                const tableBody = document.querySelector("#volumeBodyTable tbody");
+                const rows = tableBody.rows;
+
+                for (let i = 0; i < rows.length; i++) {
+                    // Оновлюємо номер в першій клітинці кожного рядка
+                    rows[i].cells[0].textContent = i + 1;
+                }
             }
 
             function exportTableToExcel() {
