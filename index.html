@@ -495,8 +495,8 @@
 
                 ws_data.push([]); // Порожній рядок
                 ws_data.push(['Загалом']); // Об'єднаний рядок
-                ws_data.push(['Сумарний об’єм (V, куб):', '', totalVolume]);
-                ws_data.push(['Кількість (Шт):', '', totalCount]);
+                ws_data.push(['Сумарний об’єм (V, куб):', '', '', totalVolume]);
+                ws_data.push(['Кількість (Шт):', '', '', totalCount]);
 
                 const ws = XLSX.utils.aoa_to_sheet(ws_data);
 
