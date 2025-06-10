@@ -422,6 +422,9 @@
                     } else if (selectedLength == 6) {
                         newRow.classList.add("length-6");
                     }
+
+                    updateRowNumbers();
+
                     const totalField = document.getElementById("totalVolume");
                     const currentTotal = parseFloat(totalField.textContent);
                     totalField.textContent = (currentTotal + volume).toFixed(3);
