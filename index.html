@@ -250,6 +250,14 @@
             width: 30%;
         }
 
+        .col-13 {
+            width: 13%;
+        }
+
+        .col-17 {
+            width: 17%;
+        }
+
 
     </style>
 </head>
@@ -441,8 +449,8 @@
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                                        <td class="row-number" class="col-10">${count}</td>
-                                        <td class="col-20">${selectedLength}</td>
+                                        <td class="row-number" class="col-13">${count}</td>
+                                        <td class="col-17">${selectedLength}</td>
                                         <td class="col-25">${selectedDiameter}</td>
                                         <td class="col-30">${volume.toFixed(3)}</td>
                                         <td class="col-15">
