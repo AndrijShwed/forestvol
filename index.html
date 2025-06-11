@@ -450,11 +450,11 @@
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
-                                        <td class="row-number">${count}</td>
-                                        <td>${selectedLength}</td>
-                                        <td>${selectedDiameter}</td>
-                                        <td>${volume.toFixed(3)}</td>
-                                        <td>
+                                        <td class="row-number" class="col-10">${count}</td>
+                                        <td class="col-20">${selectedLength}</td>
+                                        <td class="col-25">${selectedDiameter}</td>
+                                        <td class="col-35">${volume.toFixed(3)}</td>
+                                        <td class="col-10">
                                            <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
                                               <i class="fas fa-trash"></i>
                                            </button>
