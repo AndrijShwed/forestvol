@@ -229,22 +229,13 @@
             border-radius: 4px; /* закруглення */
         }
 
-        /*.percent-table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;*/ /* Це важливо для правильного розподілу % */
-        /*}
-
-            .percent-table th,
-            .percent-table td {
-                border: 1px solid #ccc;
-                padding: 8px;
-                text-align: center;
-            }*/
-
         /* Відсоткові ширини колонок */
         .col-10 {
             width: 10%;
+        }
+        
+        .col-15 {
+            width: 15%;
         }
 
         .col-20 {
@@ -255,8 +246,8 @@
             width: 25%;
         }
 
-        .col-35 {
-            width: 35%;
+        .col-30 {
+            width: 30%;
         }
 
 
@@ -274,8 +265,8 @@
                             <th class="col-25">
                                 <span style="font-size: 20px;">&oslash;</span><span style="font-size: 16px;">, сm</span>
                             </th>
-                            <th class="col-35">V, куб</th>
-                            <th class="col-10"></th>
+                            <th class="col-30">V, куб</th>
+                            <th class="col-15"></th>
                         </tr>
                     </thead>
                 </table>
@@ -453,8 +444,8 @@
                                         <td class="row-number" class="col-10">${count}</td>
                                         <td class="col-20">${selectedLength}</td>
                                         <td class="col-25">${selectedDiameter}</td>
-                                        <td class="col-35">${volume.toFixed(3)}</td>
-                                        <td class="col-10">
+                                        <td class="col-30">${volume.toFixed(3)}</td>
+                                        <td class="col-15">
                                            <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
                                               <i class="fas fa-trash"></i>
                                            </button>
