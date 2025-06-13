@@ -548,11 +548,11 @@
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
                             <td class="row-number" class="col-10">${count}</td>
-                             <td class="col-20">${selectedLength}</td>
-                             <td class="col-25">${selectedDiameter}</td>
-                             <td class="col-30">${volume.toFixed(3)}</td>
+                             <td class="col-20">${entry.Length}</td>
+                             <td class="col-25">${entry.Diameter}</td>
+                             <td class="col-30">${parseFloat(entry.volume).toFixed(3)}</td>
                              <td class="col-15">
-                                <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                <button class="delete-button" onclick="deleteEntry(this, ${parseFloat(entry.volume)})" title="Видалити">
                                    <i class="fas fa-trash"></i>
                                 </button>
                              </td>`;
@@ -663,9 +663,9 @@
 
             document.getElementById("clearStorageBtn").addEventListener("click", function () {
                 if (confirm("Очистити всі дані таблиці?")) {
-                    localStorage.removeItem("volumeTableData");
-                    localStorage.removeItem("volumeTotal");
-                    localStorage.removeItem("volumeCount");
+                    localStorage.removeItem("forestvol_table");
+                    localStorage.removeItem("forestvol_totalVolume");
+                    localStorage.removeItem("forestvol_totalCount");
 
                     // Очистити вміст таблиці
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
