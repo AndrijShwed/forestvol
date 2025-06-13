@@ -548,7 +548,7 @@
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
                             <td class="row-number" class="col-10">${count}</td>
-                             <td class="col-20">${entry.Length}</td>
+                             <td class="col-20">${parseFloat(entry.Length)}</td>
                              <td class="col-25">${entry.Diameter}</td>
                              <td class="col-30">${parseFloat(entry.volume).toFixed(3)}</td>
                              <td class="col-15">
