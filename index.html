@@ -545,20 +545,29 @@
 
                 data.forEach(entry => {
                     count++;
+                    const volume = parseFloat(entry.volume);
                     const newRow = tableBody.insertRow();
+
                     newRow.innerHTML = `
-                            <td class="row-number" class="col-10">${count}</td>
-                             <td class="col-20">${entry.Length}</td>
-                             <td class="col-25">${entry.Diameter}</td>
-                             <td class="col-30">${parseFloat(entry.volume).toFixed(3)}</td>
-                             <td class="col-15">
-                                <button class="delete-button" onclick="deleteEntry(this, ${parseFloat(entry.volume)})" title="Видалити">
-                                   <i class="fas fa-trash"></i>
-                                </button>
-                             </td>`;
+                        <td class="row-number" class="col-10">${count}</td>
+                        <td class="col-20">${entry.length}</td>
+                        <td class="col-25">${entry.diameter}</td>
+                        <td class="col-30">${volume.toFixed(3)}</td>
+                        <td class="col-15">
+                            <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>`;
 
                     newRow.classList.add(`length-${entry.length}`);
                 });
+
+                document.getElementById("totalVolume").textContent = parseFloat(totalVolume).toFixed(3);
+                document.getElementById("totalCount").textContent = totalCount;
+
+                updateRowNumbers();
+            }
+
 
                 document.getElementById("totalVolume").textContent = parseFloat(totalVolume).toFixed(3);
                 document.getElementById("totalCount").textContent = totalCount;
