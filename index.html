@@ -470,7 +470,7 @@
                     }
 
                     updateRowNumbers();
-                   /* saveToLocalStorage();*/
+                    saveToLocalStorage();
 
                     const totalField = document.getElementById("totalVolume");
                     const currentTotal = parseFloat(totalField.textContent);
@@ -513,58 +513,58 @@
             }
 
             // --- Функції для збереження та відновлення з localStorage ---
-            //function saveToLocalStorage() {
-            //    const tableBody = document.querySelector("#volumeBodyTable tbody");
-            //    const data = [];
+            function saveToLocalStorage() {
+                const tableBody = document.querySelector("#volumeBodyTable tbody");
+                const data = [];
 
-            //    for (let row of tableBody.rows) {
-            //        const rowData = {
-            //            length: row.cells[1].textContent.trim(),
-            //            diameter: row.cells[2].textContent.trim(),
-            //            volume: row.cells[3].textContent.trim()
-            //        };
-            //        data.push(rowData);
-            //    }
+                for (let row of tableBody.rows) {
+                    const rowData = {
+                        length: row.cells[1].textContent.trim(),
+                        diameter: row.cells[2].textContent.trim(),
+                        volume: row.cells[3].textContent.trim()
+                    };
+                    data.push(rowData);
+                }
 
-            //    const totalVolume = document.getElementById("totalVolume").textContent;
-            //    const totalCount = document.getElementById("totalCount").textContent;
+                const totalVolume = document.getElementById("totalVolume").textContent;
+                const totalCount = document.getElementById("totalCount").textContent;
 
-            //    localStorage.setItem("forestvol_table", JSON.stringify(data));
-            //    localStorage.setItem("forestvol_totalVolume", totalVolume);
-            //    localStorage.setItem("forestvol_totalCount", totalCount);
-            //}
+                localStorage.setItem("forestvol_table", JSON.stringify(data));
+                localStorage.setItem("forestvol_totalVolume", totalVolume);
+                localStorage.setItem("forestvol_totalCount", totalCount);
+            }
 
-            //function loadFromLocalStorage() {
-            //    const data = JSON.parse(localStorage.getItem("forestvol_table") || "[]");
-            //    const totalVolume = localStorage.getItem("forestvol_totalVolume") || "0.000";
-            //    const totalCount = localStorage.getItem("forestvol_totalCount") || "0";
+            function loadFromLocalStorage() {
+                const data = JSON.parse(localStorage.getItem("forestvol_table") || "[]");
+                const totalVolume = localStorage.getItem("forestvol_totalVolume") || "0.000";
+                const totalCount = localStorage.getItem("forestvol_totalCount") || "0";
 
-            //    const tableBody = document.querySelector("#volumeBodyTable tbody");
-            //    tableBody.innerHTML = ""; // очищаємо перед завантаженням
-            //    count = 0;
+                const tableBody = document.querySelector("#volumeBodyTable tbody");
+                tableBody.innerHTML = ""; // очищаємо перед завантаженням
+                count = 0;
 
-            //    data.forEach(entry => {
-            //        count++;
-            //        const newRow = tableBody.insertRow();
-            //        newRow.innerHTML = `
-            //                <td class="row-number" class="col-10">${count}</td>
-            //                 <td class="col-20">${selectedLength}</td>
-            //                 <td class="col-25">${selectedDiameter}</td>
-            //                 <td class="col-30">${volume.toFixed(3)}</td>
-            //                 <td class="col-15">
-            //                    <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
-            //                       <i class="fas fa-trash"></i>
-            //                    </button>
-            //                 </td>`;
+                data.forEach(entry => {
+                    count++;
+                    const newRow = tableBody.insertRow();
+                    newRow.innerHTML = `
+                            <td class="row-number" class="col-10">${count}</td>
+                             <td class="col-20">${selectedLength}</td>
+                             <td class="col-25">${selectedDiameter}</td>
+                             <td class="col-30">${volume.toFixed(3)}</td>
+                             <td class="col-15">
+                                <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                   <i class="fas fa-trash"></i>
+                                </button>
+                             </td>`;
 
-            //        newRow.classList.add(`length-${entry.length}`);
-            //    });
+                    newRow.classList.add(`length-${entry.length}`);
+                });
 
-            //    document.getElementById("totalVolume").textContent = parseFloat(totalVolume).toFixed(3);
-            //    document.getElementById("totalCount").textContent = totalCount;
+                document.getElementById("totalVolume").textContent = parseFloat(totalVolume).toFixed(3);
+                document.getElementById("totalCount").textContent = totalCount;
 
-            //   /* updateRowNumbers();*/
-            //}
+              
+            }
 
 
             function exportTableToExcel() {
@@ -661,24 +661,24 @@
             // Прив'язка кнопки
             document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
 
-            //document.getElementById("clearStorageBtn").addEventListener("click", function () {
-            //    if (confirm("Очистити всі дані таблиці?")) {
-            //        localStorage.removeItem("volumeTableData");
-            //        localStorage.removeItem("volumeTotal");
-            //        localStorage.removeItem("volumeCount");
+            document.getElementById("clearStorageBtn").addEventListener("click", function () {
+                if (confirm("Очистити всі дані таблиці?")) {
+                    localStorage.removeItem("volumeTableData");
+                    localStorage.removeItem("volumeTotal");
+                    localStorage.removeItem("volumeCount");
 
-            //        // Очистити вміст таблиці
-            //        const tableBody = document.querySelector("#volumeBodyTable tbody");
-            //        tableBody.innerHTML = "";
+                    // Очистити вміст таблиці
+                    const tableBody = document.querySelector("#volumeBodyTable tbody");
+                    tableBody.innerHTML = "";
 
-            //        // Оновити підсумки
-            //        document.getElementById("totalVolume").textContent = "0.000";
-            //        document.getElementById("totalCount").textContent = "0";
-            //    }
-            //});
+                    // Оновити підсумки
+                    document.getElementById("totalVolume").textContent = "0.000";
+                    document.getElementById("totalCount").textContent = "0";
+                }
+            });
 
 
-           /* loadFromLocalStorage();*/
+            loadFromLocalStorage();
 
         });
     </script>
