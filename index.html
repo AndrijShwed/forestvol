@@ -534,18 +534,54 @@
                 localStorage.setItem("forestvol_totalCount", totalCount);
             }
 
+            //function loadFromLocalStorage() {
+            //    const data = JSON.parse(localStorage.getItem("forestvol_table") || "[]");
+            //    const totalVolume = localStorage.getItem("forestvol_totalVolume") || "0.000";
+            //    const totalCount = localStorage.getItem("forestvol_totalCount") || "0";
+
+            //    const tableBody = document.querySelector("#volumeBodyTable tbody");
+            //    tableBody.innerHTML = ""; // очищаємо перед завантаженням
+            //    count = 0;
+
+            //    data.forEach(entry => {
+            //        count++;
+            //        const volume = parseFloat(entry.volume);
+            //        const newRow = tableBody.insertRow();
+
+            //        newRow.innerHTML = `
+            //            <td class="row-number" class="col-10">${count}</td>
+            //            <td class="col-20">${entry.length}</td>
+            //            <td class="col-25">${entry.diameter}</td>
+            //            <td class="col-30">${volume.toFixed(3)}</td>
+            //            <td class="col-15">
+            //                <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+            //                    <i class="fas fa-trash"></i>
+            //                </button>
+            //            </td>`;
+
+            //        newRow.classList.add(`length-${entry.length}`);
+            //    });
+
+            //    document.getElementById("totalVolume").textContent = parseFloat(totalVolume).toFixed(3);
+            //    document.getElementById("totalCount").textContent = totalCount;
+
+            //    updateRowNumbers();
+            //}
+
             function loadFromLocalStorage() {
                 const data = JSON.parse(localStorage.getItem("forestvol_table") || "[]");
-                const totalVolume = localStorage.getItem("forestvol_totalVolume") || "0.000";
-                const totalCount = localStorage.getItem("forestvol_totalCount") || "0";
 
                 const tableBody = document.querySelector("#volumeBodyTable tbody");
-                tableBody.innerHTML = ""; // очищаємо перед завантаженням
+                tableBody.innerHTML = "";
                 count = 0;
 
+                let totalVolume = 0;
+
                 data.forEach(entry => {
-                    count++;
                     const volume = parseFloat(entry.volume);
+                    if (isNaN(volume)) return;
+
+                    count++;
                     const newRow = tableBody.insertRow();
 
                     newRow.innerHTML = `
@@ -560,13 +596,16 @@
                         </td>`;
 
                     newRow.classList.add(`length-${entry.length}`);
+                    totalVolume += volume;
                 });
 
-                document.getElementById("totalVolume").textContent = parseFloat(totalVolume).toFixed(3);
-                document.getElementById("totalCount").textContent = totalCount;
+                // ОНОВЛЮЄМО ПІДСУМКИ
+                document.getElementById("totalVolume").textContent = totalVolume.toFixed(3);
+                document.getElementById("totalCount").textContent = count.toString();
 
                 updateRowNumbers();
             }
+
 
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
