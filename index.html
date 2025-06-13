@@ -303,9 +303,9 @@
             </div>
 
             <button onclick="saveEntry()">Додати</button>
+            <button id="clearStorageBtn">Очистити таблицю</button>
 
             <!--<a href="indexpro.html">Перейти на про</a>-->
-
             <!-- Кнопка для збереження Excel -->
             <button id="exportExcelBtn">Зберегти в Excel</button>
         </div>
@@ -649,6 +649,23 @@
 
             // Прив'язка кнопки
             document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
+
+            document.getElementById("clearStorageBtn").addEventListener("click", function () {
+                if (confirm("Очистити всі дані таблиці?")) {
+                    localStorage.removeItem("volumeTableData");
+                    localStorage.removeItem("volumeTotal");
+                    localStorage.removeItem("volumeCount");
+
+                    // Очистити вміст таблиці
+                    const tableBody = document.querySelector("#volumeBodyTable tbody");
+                    tableBody.innerHTML = "";
+
+                    // Оновити підсумки
+                    document.getElementById("totalVolume").textContent = "0.000";
+                    document.getElementById("totalCount").textContent = "0";
+                }
+            });
+
 
             loadFromLocalStorage();
 
