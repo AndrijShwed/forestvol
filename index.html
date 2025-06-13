@@ -568,14 +568,6 @@
                 updateRowNumbers();
             }
 
-
-                document.getElementById("totalVolume").textContent = parseFloat(totalVolume).toFixed(3);
-                document.getElementById("totalCount").textContent = totalCount;
-
-              
-            
-
-
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
                 const wb = XLSX.utils.book_new();
