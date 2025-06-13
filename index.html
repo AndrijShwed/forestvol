@@ -459,6 +459,7 @@
                     }
 
                     updateRowNumbers();
+                    saveToLocalStorage();
 
                     const totalField = document.getElementById("totalVolume");
                     const currentTotal = parseFloat(totalField.textContent);
@@ -478,6 +479,7 @@
                 const row = button.closest('tr');
                 row.remove();
                 updateRowNumbers();
+                saveToLocalStorage();
 
                 const totalField = document.getElementById("totalVolume");
                 const currentTotal = parseFloat(totalField.textContent);
@@ -498,6 +500,61 @@
                     rows[i].cells[0].textContent = i + 1;
                 }
             }
+
+            // --- Функції для збереження та відновлення з localStorage ---
+            function saveToLocalStorage() {
+                const tableBody = document.querySelector("#volumeBodyTable tbody");
+                const data = [];
+
+                for (let row of tableBody.rows) {
+                    const rowData = {
+                        length: row.cells[1].textContent.trim(),
+                        diameter: row.cells[2].textContent.trim(),
+                        volume: row.cells[3].textContent.trim()
+                    };
+                    data.push(rowData);
+                }
+
+                const totalVolume = document.getElementById("totalVolume").textContent;
+                const totalCount = document.getElementById("totalCount").textContent;
+
+                localStorage.setItem("forestvol_table", JSON.stringify(data));
+                localStorage.setItem("forestvol_totalVolume", totalVolume);
+                localStorage.setItem("forestvol_totalCount", totalCount);
+            }
+
+            function loadFromLocalStorage() {
+                const data = JSON.parse(localStorage.getItem("forestvol_table") || "[]");
+                const totalVolume = localStorage.getItem("forestvol_totalVolume") || "0.000";
+                const totalCount = localStorage.getItem("forestvol_totalCount") || "0";
+
+                const tableBody = document.querySelector("#volumeBodyTable tbody");
+                tableBody.innerHTML = ""; // очищаємо перед завантаженням
+                count = 0;
+
+                data.forEach(entry => {
+                    count++;
+                    const newRow = tableBody.insertRow();
+                    newRow.innerHTML = `
+                        <td class="row-number">${count}</td>
+                        <td>${entry.length}</td>
+                        <td>${entry.diameter}</td>
+                        <td>${parseFloat(entry.volume).toFixed(3)}</td>
+                        <td>
+                            <button class="delete-button" onclick="deleteEntry(this, ${parseFloat(entry.volume)})" title="Видалити">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>`;
+
+                    newRow.classList.add(`length-${entry.length}`);
+                });
+
+                document.getElementById("totalVolume").textContent = parseFloat(totalVolume).toFixed(3);
+                document.getElementById("totalCount").textContent = totalCount;
+
+                updateRowNumbers();
+            }
+
 
             function exportTableToExcel() {
                 const table = document.getElementById('volumeBodyTable');
@@ -592,6 +649,8 @@
 
             // Прив'язка кнопки
             document.getElementById('exportExcelBtn').addEventListener('click', exportTableToExcel);
+
+            loadFromLocalStorage();
 
         });
     </script>
