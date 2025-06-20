@@ -264,6 +264,21 @@
             width: 30%;
         }
 
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .button-group {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+
     </style>
 </head>
 <body>
@@ -317,12 +332,28 @@
                 <div class="select-items select-hide"></div>
             </div>
 
-            <button onclick="saveEntry()">Додати</button>
-            <button id="clearStorageBtn">Очист.</button>
+            <!--<div class="button-container">
+                <button onclick="saveEntry()">Додати</button>
+                <button id="clearStorageBtn">Очист.</button>-->
 
-            <!--<a href="indexpro.html">Перейти на про</a>-->
-            <!-- Кнопка для збереження Excel -->
-            <button id="exportExcelBtn">Excel</button>
+                <!--<a href="indexpro.html">Перейти на про</a>-->
+                <!-- Кнопка для збереження Excel -->
+                <!--<button id="exportExcelBtn">Excel</button>
+            </div>-->
+
+            <div class="button-container">
+                <div class="button-group">
+                    <button onclick="saveEntry()">Додати</button>
+                </div>
+                <div class="button-group center-button">
+                    <button id="clearStorageBtn">Очист.</button>
+                </div>
+                <div class="button-group">
+                    <button id="exportExcelBtn">Excel</button>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
