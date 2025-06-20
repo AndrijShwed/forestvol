@@ -267,14 +267,15 @@
         .button-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            position: relative;
+            align-items: stretch;
+            height: 100%; /* або auto, якщо вміст росте */
         }
 
-        .middle-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+        .spacer {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
 
@@ -341,10 +342,10 @@
                 <!--<button id="exportExcelBtn">Excel</button>
             </div>-->
 
-            <div class="button-wrapper" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="button-container">
                 <button>Додати</button>
 
-                <div style="flex-grow: 1; display: flex; align-items: center;">
+                <div class="spacer">
                     <button id="clearStorageBtn">Очист.</button>
                 </div>
 
