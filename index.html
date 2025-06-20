@@ -268,7 +268,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
+
+        .middle-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
 
 
     </style>
@@ -326,7 +334,7 @@
 
             <div class="button-container">
                 <button onclick="saveEntry()">Додати</button>
-                <button id="clearStorageBtn">Очист.</button>
+                <button id="clearStorageBtn" class="middle-btn">Очист.</button>
 
                 <!--<a href="indexpro.html">Перейти на про</a>-->
                  <!--Кнопка для збереження Excel--> 
