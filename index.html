@@ -332,14 +332,25 @@
                 <div class="select-items select-hide"></div>
             </div>
 
-            <div class="button-container">
+            <!--<div class="button-container">
                 <button onclick="saveEntry()">Додати</button>
-                <button id="clearStorageBtn" class="middle-btn">Очист.</button>
+                <button id="clearStorageBtn" class="middle-btn">Очист.</button>-->
 
                 <!--<a href="indexpro.html">Перейти на про</a>-->
-                 <!--Кнопка для збереження Excel--> 
-                <button id="exportExcelBtn">Excel</button>
+                <!--Кнопка для збереження Excel-->
+                <!--<button id="exportExcelBtn">Excel</button>
+            </div>-->
+
+            <div class="button-wrapper" style="display: flex; flex-direction: column; align-items: center;">
+                <button>Додати</button>
+
+                <div style="flex-grow: 1; display: flex; align-items: center;">
+                    <button id="clearStorageBtn">Очист.</button>
+                </div>
+
+                <button>Excel</button>
             </div>
+
 
         </div>
     </div>
