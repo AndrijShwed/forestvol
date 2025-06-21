@@ -264,6 +264,17 @@
             width: 30%;
         }
 
+        .down {
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* або auto, якщо батьківський блок тягнеться */
+        }
+
+        .spacer {
+            flex-grow: 1;
+        }
+
+
     </style>
 </head>
 <body>
@@ -300,31 +311,36 @@
         </div>
 
         <div class="right">
-            <label>Довжина:</label>
-            <div class="custom-select" id="length-custom">
-                <div class="select-selected">6</div>
-                <div class="select-items select-hide">
-                    <div data-value="3">3</div>
-                    <div data-value="4">4</div>
-                    <div data-value="5">5</div>
-                    <div data-value="6">6</div>
+
+            <div class="up">
+                <label>Довжина:</label>
+                <div class="custom-select" id="length-custom">
+                    <div class="select-selected">6</div>
+                    <div class="select-items select-hide">
+                        <div data-value="3">3</div>
+                        <div data-value="4">4</div>
+                        <div data-value="5">5</div>
+                        <div data-value="6">6</div>
+                    </div>
+                </div>
+
+                <label>Діаметр:</label>
+                <div class="custom-select" id="diameter-custom">
+                    <div class="select-selected">16</div>
+                    <div class="select-items select-hide"></div>
                 </div>
             </div>
-
-            <label>Діаметр:</label>
-            <div class="custom-select" id="diameter-custom">
-                <div class="select-selected">16</div>
-                <div class="select-items select-hide"></div>
+           
+            <div class="down">
+                <button onclick="saveEntry()">Додати</button>
+                <div class="spacer"></div>
+                <button id="clearStorageBtn">Очист.</button>
+                <div class="spacer"></div>
+                <!--<a href="indexpro.html">Перейти на про</a>
+                Кнопка для збереження Excel-->
+                <button id="exportExcelBtn">Excel</button>
             </div>
-
-            
-            <button onclick="saveEntry()">Додати</button>
-            <button id="clearStorageBtn">Очист.</button>
-
-            <!--<a href="indexpro.html">Перейти на про</a>
-            Кнопка для збереження Excel-->
-            <button id="exportExcelBtn">Excel</button>
-
+           
         </div>
     </div>
 
