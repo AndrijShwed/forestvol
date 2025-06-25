@@ -512,7 +512,7 @@
                     }
 
                     updateRowNumbers();
-                    saveToLocalStorage();
+                   
 
                     const totalField = document.getElementById("totalVolume");
                     const currentTotal = parseFloat(totalField.textContent);
@@ -524,6 +524,7 @@
                     countsByLength[parseInt(selectedLength)] += 1;
                     volumesByLength[parseInt(selectedLength)] += volume;
 
+                    saveToLocalStorage();
                     updateLengthTotals();
 
 
