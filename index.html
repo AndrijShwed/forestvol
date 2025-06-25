@@ -497,7 +497,7 @@
                                         <td class="col-25">${selectedDiameter}</td>
                                         <td class="col-30">${volume.toFixed(3)}</td>
                                         <td class="col-15">
-                                           <button class="delete-button" onclick="deleteEntry(this, ${volume})" title="Видалити">
+                                           <button class="delete-button" onclick="deleteEntry(this, ${volume}, ${selectedLength})" title="Видалити">
                                               <i class="fas fa-trash"></i>
                                            </button>
                                         </td>`;
@@ -521,8 +521,8 @@
                     document.getElementById("totalCount").textContent = tableBody.rows.length;
 
                     // Оновлення кількості та об’єму по довжинах
-                    countsByLength[selectedLength] += 1;
-                    volumesByLength[selectedLength] += volume;
+                    countsByLength[parseInt(selectedLength)] += 1;
+                    volumesByLength[parseInt(selectedLength)] += volume;
 
                     updateLengthTotals();
 
@@ -536,7 +536,7 @@
                 }
             };
 
-            window.deleteEntry = function (button, volume) {
+            window.deleteEntry = function (button, volume, length) {
                 const row = button.closest('tr');
                 row.remove();
                 // Оновити лічильники
@@ -775,16 +775,10 @@
                     const countSpan = document.getElementById(`count_${len}`);
                     const volumeSpan = document.getElementById(`volume_${len}`);
 
-                    if (countSpan) {
-                        countSpan.textContent = countsByLength[len];
-                    }
-
-                    if (volumeSpan) {
-                        volumeSpan.textContent = volumesByLength[len].toFixed(3);
-                    }
+                    if (countSpan) countSpan.textContent = countsByLength[len];
+                    if (volumeSpan) volumeSpan.textContent = volumesByLength[len].toFixed(3);
                 }
             }
-
 
         });
     </script>
