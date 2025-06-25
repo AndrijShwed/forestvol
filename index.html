@@ -543,8 +543,9 @@
                 countsByLength[length] -= 1;
                 volumesByLength[length] -= volume;
 
-                updateRowNumbers();
                 saveToLocalStorage();
+                updateRowNumbers();
+               
                 updateLengthTotals();
 
                 const totalField = document.getElementById("totalVolume");
