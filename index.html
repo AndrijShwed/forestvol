@@ -666,7 +666,18 @@
                 const totalVolume = document.getElementById('totalVolume').textContent.trim();
                 const totalCount = document.getElementById('totalCount').textContent.trim();
 
+                const volume_6 = document.getElementById("volume_6").textContent.trim();
+                const count_6 = document.getElementById("count_6").textContent.trim();
+                const volume_5 = document.getElementById("volume_5").textContent.trim();
+                const count_5 = document.getElementById("count_5").textContent.trim();
+                const volume_4 = document.getElementById("volume_4").textContent.trim();
+                const count_4 = document.getElementById("count_4").textContent.trim();
+
+
                 ws_data.push([]); // Порожній рядок
+                ws_data.push(['6м:', '', volume_6, count_6]); 
+                ws_data.push(['5м:', '', volume_5, count_5]); 
+                ws_data.push(['4м:', '', volume_4, count_4]); 
                 ws_data.push(['Загалом', '', '', '']); // Об'єднаний рядок
                 ws_data.push(['Сумарний об’єм (V, куб):', '', '', totalVolume]);
                 ws_data.push(['Кількість (Шт):', '', '', totalCount]);
@@ -704,7 +715,7 @@
                 ];
 
                 // Об’єднання клітинок
-                const summaryStartRow = ws_data.length - 3;
+                const summaryStartRow = ws_data.length;
                 ws['!merges'] = [
                     { s: { r: summaryStartRow, c: 0 }, e: { r: summaryStartRow, c: 3 } }, // "Загалом"
                     { s: { r: summaryStartRow + 1, c: 0 }, e: { r: summaryStartRow + 1, c: 2 } }, // Сума
@@ -726,6 +737,10 @@
                    
                 ];
 
+                ['A' + (summaryStartRow - 3), 'A' + (summaryStartRow - 2), 'A' + (summaryStartRow - 1)]
+                    .forEach(cell => {
+                        if (ws[cell]) ws[cell].s = { ...boldCenterStyle };
+                    });
 
                 boldCells.forEach(cell => {
                     if (ws[cell]) ws[cell].s = { ...boldCenterStyle };
