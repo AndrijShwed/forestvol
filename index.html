@@ -741,14 +741,26 @@
                     localStorage.removeItem("forestvol_table");
                     localStorage.removeItem("forestvol_totalVolume");
                     localStorage.removeItem("forestvol_totalCount");
+                    localStorage.removeItem("forestvol_countsByLength");
+                    localStorage.removeItem("forestvol_volumesByLength");
 
                     // Очистити вміст таблиці
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
                     tableBody.innerHTML = "";
 
+                    // Скинути лічильники та об’єми по довжинах
+                    for (let len of [3, 4, 5, 6]) {
+                        countsByLength[len] = 0;
+                        volumesByLength[len] = 0;
+                    }
+
                     // Оновити підсумки
                     document.getElementById("totalVolume").textContent = "0.000";
                     document.getElementById("totalCount").textContent = "0";
+
+                    // Оновити значення внизу таблиці
+                    updateLengthTotals();
+
                     document.getElementById("BacketSound").play();
                 }
             });
