@@ -414,8 +414,8 @@
             "3-60": 0.99, "4-60": 1.33, "5-60": 1.68, "6-60": 2.05
         };
 
-        const countsByLength = { 3: 0, 4: 0, 5: 0, 6: 0 };
-        const volumesByLength = { 3: 0, 4: 0, 5: 0, 6: 0 };
+        const countsByLength = { 4: 0, 5: 0, 6: 0 };
+        const volumesByLength = { 4: 0, 5: 0, 6: 0 };
 
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -633,7 +633,7 @@
                 const storedCounts = JSON.parse(localStorage.getItem("forestvol_countsByLength") || "{}");
                 const storedVolumes = JSON.parse(localStorage.getItem("forestvol_volumesByLength") || "{}");
 
-                for (let len of [3, 4, 5, 6]) {
+                for (let len of [4, 5, 6]) {
                     countsByLength[len] = storedCounts[len] || 0;
                     volumesByLength[len] = storedVolumes[len] || 0;
                 }
@@ -752,7 +752,7 @@
                     tableBody.innerHTML = "";
 
                     // Скинути лічильники та об’єми по довжинах
-                    for (let len of [3, 4, 5, 6]) {
+                    for (let len of [4, 5, 6]) {
                         countsByLength[len] = 0;
                         volumesByLength[len] = 0;
                     }
@@ -772,7 +772,7 @@
             loadFromLocalStorage();
 
             function updateLengthTotals() {
-                for (let len of [3, 4, 5, 6]) {
+                for (let len of [4, 5, 6]) {
                     const countSpan = document.getElementById(`count_${len}`);
                     const volumeSpan = document.getElementById(`volume_${len}`);
 
