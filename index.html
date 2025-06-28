@@ -309,19 +309,17 @@
                             <td colspan="2">V: <span id="totalVolume">0</span></td>
                             <td colspan="2">Шт: <span id="totalCount">0</span></td>
                         </tr>
-                    </tfoot>
-                    <tfoot id="lengthSummary" style="display: none;">
-                        <tr>
+                        <tr id="row_6" style="display: none;">
                             <td colspan="2">6m:</td>
                             <td><span id="volume_6">0</span></td>
                             <td>Шт: <span id="count_6">0</span></td>
                         </tr>
-                        <tr>
+                        <tr id="row_5" style="display: none;">
                             <td colspan="2">5m:</td>
                             <td><span id="volume_5">0</span></td>
                             <td>Шт: <span id="count_5">0</span></td>
                         </tr>
-                        <tr>
+                        <tr id="row_4" style="display: none;">
                             <td colspan="2">4m:</td>
                             <td><span id="volume_4">0</span></td>
                             <td>Шт: <span id="count_4">0</span></td>
@@ -811,17 +809,17 @@
                 }
             }
 
+            let isShown = false;
             function toggleLengthSummary() {
-                const summary = document.getElementById('lengthSummary');
-                const btn = document.getElementById('toggleLengthBtn');
+                const rows = ['row_6', 'row_5', 'row_4'];
+                rows.forEach(id => {
+                    const row = document.getElementById(id);
+                    row.style.display = isShown ? 'none' : '';
+                });
 
-                if (summary.style.display === 'none' || summary.style.display === '') {
-                    summary.style.display = 'table-footer-group'; // показати
-                    btn.textContent = 'Сховати';
-                } else {
-                    summary.style.display = 'none'; // сховати
-                    btn.textContent = 'По довжинах';
-                }
+                const btn = document.getElementById('toggleLengthBtn');
+                btn.textContent = isShown ? 'По довжинах' : 'Сховати';
+                isShown = !isShown;
             }
 
         });
