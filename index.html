@@ -810,7 +810,7 @@
             }
 
             let isShown = false;
-            function toggleLengthSummary() {
+            window.toggleLengthSummary = function () {
                 const rows = ['row_6', 'row_5', 'row_4'];
                 rows.forEach(id => {
                     const row = document.getElementById(id);
@@ -820,7 +820,8 @@
                 const btn = document.getElementById('toggleLengthBtn');
                 btn.textContent = isShown ? 'По довжинах' : 'Сховати';
                 isShown = !isShown;
-            }
+            };
+
 
         });
     </script>
