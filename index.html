@@ -274,6 +274,10 @@
             flex-grow: 1;
         }
 
+        #lengthSummary {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
 
     </style>
 </head>
@@ -306,7 +310,7 @@
                             <td colspan="2">Шт: <span id="totalCount">0</span></td>
                         </tr>
                     </tfoot>
-                    <tfoot id="lengthSummary" style="display: none" onclick="toggleLengthSummary()">
+                    <tfoot id="lengthSummary" style="display: none;">
                         <tr>
                             <td colspan="2">6m:</td>
                             <td><span id="volume_6">0</span></td>
@@ -325,7 +329,7 @@
 
                     </tfoot>
                 </table>
-                <button onclick="toggleLengthSummary()">По довжинах</button>
+                <button id="toggleLengthBtn" onclick="toggleLengthSummary()">По довжинах</button>
             </div>
         </div>
 
@@ -808,8 +812,16 @@
             }
 
             function toggleLengthSummary() {
-                const summary = document.getElementById("lengthSummary");
-                summary.style.display = (summary.style.display === "none") ? "table-row-group" : "none";
+                const summary = document.getElementById('lengthSummary');
+                const btn = document.getElementById('toggleLengthBtn');
+
+                if (summary.style.display === 'none' || summary.style.display === '') {
+                    summary.style.display = 'table-footer-group'; // показати
+                    btn.textContent = 'Сховати';
+                } else {
+                    summary.style.display = 'none'; // сховати
+                    btn.textContent = 'По довжинах';
+                }
             }
 
         });
