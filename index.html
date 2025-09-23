@@ -277,7 +277,7 @@
 
         .highlighted-row {
             background-color: rgba(255, 100, 100, 0.3); /* блідо-червоний */
-            transition: background-color 0.5s ease;
+            transition: background-color 2s ease;
         }
 
 
@@ -504,6 +504,7 @@
                     if (lastHighlighted) {
                         lastHighlighted.classList.remove("highlighted-row");
                     }
+                    clearTimeout(highlightTimeout);
 
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
@@ -519,6 +520,11 @@
 
                         // додати підсвітку новому рядку
                         newRow.classList.add("highlighted-row");
+
+                        // Через 5 секунд прибираємо підсвітку
+                        highlightTimeout = setTimeout(() => {
+                            newRow.classList.remove("highlighted-row");
+                        }, 5000);
 
                     if (selectedLength == 3) {
                         newRow.classList.add("length-3");
