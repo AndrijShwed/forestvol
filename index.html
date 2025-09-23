@@ -275,6 +275,12 @@
             overflow: hidden;
         }
 
+        .highlighted-row {
+            background-color: rgba(255, 100, 100, 0.3); /* блідо-червоний */
+            transition: background-color 0.5s ease;
+        }
+
+
     </style>
 </head>
 <body>
@@ -492,6 +498,13 @@
                 const volume = volumeLookup[key];
                 if (volume !== undefined) {
                     const tableBody = document.querySelector("#volumeBodyTable tbody");
+
+                    // зняти підсвітку з попереднього останнього рядка
+                    const lastHighlighted = tableBody.querySelector(".highlighted-row");
+                    if (lastHighlighted) {
+                        lastHighlighted.classList.remove("highlighted-row");
+                    }
+
                     const newRow = tableBody.insertRow();
                     newRow.innerHTML = `
                                         <td class="row-number" class="col-10">${count}</td>
