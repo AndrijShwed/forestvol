@@ -492,6 +492,8 @@
                 document.getElementById("tikSound").play();
             });
 
+            let highlightTimeout;
+
             window.saveEntry = function () {
                 count++;
                 const key = `${selectedLength}-${selectedDiameter}`;
