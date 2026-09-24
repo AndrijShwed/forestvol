@@ -27,12 +27,17 @@
             flex: 0 0 76%;
         }
 
-        .right {
+        /*.right {
             flex: 0 0 20%;
             position: relative;
             padding-bottom: 60px;
-        }
+        }*/
 
+        .right {
+            flex: 0 0 20%;
+            display: flex;
+            flex-direction: column;
+        }
         .table-wrapper {
             height: 85vh;
             display: flex;
@@ -185,7 +190,7 @@
             display: none;
         }
 
-        #exportExcelBtn {
+        /*#exportExcelBtn {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -197,9 +202,19 @@
             justify-content: center;
             text-align: center;
             height: 50px;
-        }
+        }*/
 
-        #clearStorageBtn {
+        #exportExcelBtn {
+            flex-shrink: 0;
+            background-color: #007ACC;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 50px;
+        }
+       /* #clearStorageBtn {
             position: relative;
             background-color: red;
             color: white;
@@ -209,8 +224,19 @@
             cursor: pointer;
             height: 55px;
             width: 100%;
-        }
+        }*/
 
+        #clearStorageBtn {
+            flex-shrink: 0;
+            background-color: red;
+            color: white;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            height: 55px;
+            width: 100%;
+        }
         .length-3 {
             background-color: plum;
         }
@@ -254,12 +280,17 @@
             width: 30%;
         }
 
-        .down {
+        /*.down {
             display: flex;
             flex-direction: column;
             height: 40%;
-        }
+        }*/
 
+        .down {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+        }
         .spacer {
             flex-grow: 1;
         }
